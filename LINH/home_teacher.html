@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Teacher</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="home_teacher.css">
+</head>
+<body>
+  <div class="wrapper">
+
+    <!-- MENU -->
+    <nav class="menu">
+      <div class="logo">
+        <img src= "Anh/Logo.png" alt="Logo" style="height: 60px;"/>
+        <span></span>
+      </div>
+      <ul class="main-menu">
+        <li><a href="#">HOME</a></li>
+        <li><a href="#">BLOG</a></li>
+        <li><a href="#">COURSE</a>
+          <ul class="sub-menu">
+            <li><a href="#">CREATE COURSE</a></li>
+            <li><a href="#">CREATE TEST</a></li>
+          </ul>
+        </li>
+        <li class="notification">
+          <a href="#">
+            <div class="icon-wrapper">
+              <i class="fas fa-bell"></i>
+              <span class="badge" id="notification-count">3</span>
+            </div>
+          </a>
+        </li>    
+        <li><a href="#"><i class="fas fa-user"></i></a>
+            <ul class="sub-menu">
+                <li><div class="teacher-name" id="teacher-name">TÊN HỌC SINH</div></li>
+                <li><a href="#">PROFILE</a></li>
+                <li><a href="#">STATISTICAL</a></li>
+                <li><a href="#">SUPPORT</a></li>
+                <li><a href="#">LOG OUT</a></li>
+            </ul>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- KHẨU HIỆU CHÀO MỪNG -->
+    <section class="welcome-section">
+      <div class="welcome-container">
+        <div class="marquee-wrapper"><h1 class="welcome-title">CHÀO MỪNG THẦY CÔ ĐẾN VỚI GOLEARN!</h1></div>
+        <p class="welcome-slogan">GoLearn - Nơi gieo mầm tri thức, thắp sáng ước mơ, lan tỏa yêu thương và truyền cảm hứng trong từng khóa học.<br>Tại GoLearn, mỗi khóa học là một hành trình đồng hành cùng học sinh khám phá tri thức. Chúng tôi không chỉ cung cấp không gian lưu trữ bài giảng, mà còn giúp thầy cô quản lý lớp học, theo dõi học sinh và tổ chức nội dung một cách khoa học, hiệu quả.<br>Với giao diện thân thiện, dễ sử dụng cùng hệ thống quản lý rõ ràng, GoLearn sẽ là người bạn đồng hành đáng tin cậy của thầy cô trong hành trình kiến tạo không gian lớp học ảo hiện đại – nơi học sinh phát triển toàn diện, còn giáo viên yên tâm tổ chức và theo dõi việc học một cách hiệu quả.<br> Chúng tôi tin rằng, mỗi thầy cô là một ngọn lửa và GoLearn sẽ là nơi thắp sáng và nuôi dưỡng những ngọn lửa ấy, viết lên tương lai đầy hi vọng cho những chủ nhân tương lai đất nước!</p>
+      </div>
+      <div class="welcome-image">
+          <img src="Anh/teacher2.png" alt="GoLearn">
+      </div>
+    </section>
+
+    <!-- SLIDESHOW -->
+    <div class="slideshow-container">
+      <div class="slide fade">
+        <img src="Anh/slideshow1.png" alt="Slideshow 1">
+      </div>
+      <div class="slide fade">
+        <img src="Anh/slideshow2.png" alt="Slideshow 2">
+      </div>
+      <div class="slide fade">
+        <img src="Anh/slideshow3.png" alt="Slideshow 3">
+      </div>
+      <div class="slide fade">
+        <img src="Anh/slideshow4.png" alt="Slideshow 4">
+      </div>
+      <div class="slide fade">
+        <img src="Anh/slideshow5.png" alt="Slideshow 5">
+      </div>
+    
+      <!-- Nút điều hướng -->
+      <a class="prev" onclick="plusSlides(-1)">❮</a>
+      <a class="next" onclick="plusSlides(1)">❯</a>
+
+      <!-- Chấm tròn điều hướng -->
+      <div style="text-align:center">
+        <span class="dot" onclick="currentSlide(1)"></span>
+        <span class="dot" onclick="currentSlide(2)"></span>
+        <span class="dot" onclick="currentSlide(3)"></span>
+        <span class="dot" onclick="currentSlide(4)"></span>
+        <span class="dot" onclick="currentSlide(5)"></span>
+      </div>
+    </div>
+
+     <!-- CÁC TÍNH NĂNG CHÍNH -->
+     <div class="recommended-features">
+      <h1 >NHỮNG TÍNH NĂNG CHÍNH CỦA GOLEARN</h1>
+      <div class="feature-cards">
+
+      <!-- Feature 1 -->
+      <div class="feature-card">
+        <img src="Anh/feature 1.png" alt="Feature 1" class="feature-image">
+        <div class="feature-content">
+          <h3 class="feature-title">THIẾT KẾ KHÓA HỌC - DỄ DÀNG, CHUYÊN NGHIỆP, NHANH CHÓNG</h3>
+          <p class="feature-description">Tạo khóa học theo từng chương, chủ đề và bài với những thao tác đơn giản. Giao diện thân thiện giúp giáo viên dễ dàng tích hợp đa dạng nội dung từ văn bản, hình ảnh, âm thanh, video và câu hỏi tương tác.<br><b>Điểm nổi bật: </b><br><b>- Cấu trúc rõ ràng: </b>Tạo các chương, bài học, chủ đề, phù hợp với chương trình chuẩn.<br><b>- Tích hợp tài nguyên: </b>Thêm hình ảnh, âm thanh, video, tài liệu tham khảo, bài tập, câu hỏi kiểm tra, đánh giá ngay trong bài học.<br><b>- Giao diện trực quan: </b>Kéo – thả dễ dàng, bố cục rõ ràng, dễ quản lý toàn bộ nội dung khóa học.</p>
+          <a href="course-detail.html?id=van8" class="feature-button">Xem chi tiết</a>
+        </div>
+      </div>
+
+      <!-- Feature 2 -->
+      <div class="feature-card">
+        <div class="feature-content">
+          <h3 class="feature-title">QUẢN LÝ HỌC SINH - NẮM BẮT RÕ RÀNG, KẾT NỐI DỄ DÀNG</h3>
+          <p class="feature-description">Dễ dàng theo dõi tình hình học tập của từng học sinh: từ điểm số, mức độ tham gia đến lịch sử học tập. Tất cả đều được trình bày một cách trực quan và dễ dàng thao tác.<br><b>Điểm nổi bật:</b><br><b>Hồ sơ học sinh đầy đủ: </b>Bao gồm ảnh đại diện, lớp, trạng thái học tập, lịch sử bài nộp.<br><b>Theo dõi tiến độ: </b>Hiển thị phần trăm hoàn thành bài học, lượt tương tác, lượt đăng nhập.<br><b>Tìm kiếm và lọc nhanh: </b>Dễ dàng tìm học sinh theo tên, lớp, trạng thái hoặc kết quả học tập.</p>
+          <a href="course-detail.html?id=toan8" class="feature-button">Xem chi tiết</a>
+        </div>
+        <img src="Anh/feature 2.png" alt="Feature 2" class="feature-image">
+      </div>
+
+      <!-- Feature 3 -->
+      <div class="feature-card">
+        <img src="Anh/feature 3.png" alt="Feature 3" class="feature-image">
+        <div class="feature-content">
+          <h3 class="feature-title">THÔNG BÁO TỨC THỜI - CẬP NHẬT MỌI LÚC, MỌI NƠI</h3>
+          <p class="feature-description">Hệ thống thông báo giúp giáo viên truyền tải thông tin dễ dàng đến học sinh, đồng thời nhận cập nhật mới nhất từ hệ thống một cách nhanh chóng và kịp thời.<br><b>Điểm nổi bật:</b><br><b>Gửi thông báo tức thời: </b>Bài học mới, deadline bài tập, tin nhắn quan trọng.<br><b>Lưu trữ bảng tin: </b>Tất cả thông báo đều được lưu trong "bảng tin lớp học" để học sinh dễ tra cứu.<br><b>Phân loại rõ ràng: </b>Thông báo được phân theo nhóm: hệ thống – lớp học – cá nhân.</p>
+          <a href="course-detail.html?id=tienganh8" class="feature-button">Xem chi tiết</a>
+        </div>
+      </div>
+
+      <!-- Feature 4 -->
+      <div class="feature-card">
+        <div class="feature-content">
+          <h3 class="feature-title">THỐNG KÊ KẾT QUẢ HỌC TẬP - DỮ LIỆU HÓA MỌI TIẾN TRÌNH</h3>
+          <p class="feature-description">GoLearn cung cấp các báo cáo học tập dạng biểu đồ, giúp giáo viên đánh giá nhanh hiệu quả dạy học và đưa ra điều chỉnh kịp thời.<br><b>Điểm nổi bật:</b><br><b>Biểu đồ trực quan: </b>Thống kê tiến độ lớp học, tỉ lệ hoàn thành bài, điểm trung bình môn.<br><b>So sánh lớp học: </b>Đối chiếu kết quả giữa các lớp hoặc giữa các bài học khác nhau.<br><b>Xuất báo cáo dễ dàng: </b>Cho phép tải về định dạng file PDF, Excel hoặc chia sẻ nội bộ.</p>
+          <a href="course-detail.html?id=tienganh8" class="feature-button">Xem chi tiết</a>
+        </div>
+        <img src="Anh/feature 4.png" alt="Feature 4" class="feature-image">
+      </div>
+
+      <!-- Feature 5 -->
+      <div class="feature-card">
+        <img src="Anh/feature 5.png" alt="Feature 5" class="feature-image">
+        <div class="feature-content">
+          <h3 class="feature-title">ĐÁNH GIÁ THÔNG MINH - CHÍNH XÁC VÀ TOÀN DIỆN</h3>
+          <p class="feature-description">Cung cấp công cụ giao và chấm bài hiệu quả với nhiều định dạng: trắc nghiệm, tự luận, bài tập file đính kèm. Hệ thống tự động lưu trữ điểm và phản hồi.<br><b>Điểm nổi bật:</b><br><b>Giao bài linh hoạt: </b><br>Chọn thời gian mở – đóng bài tập, cho phép nộp lại hoặc không.<br><b>Chấm điểm dễ dàng: </b>Giao diện nhập điểm, nhận xét trực tiếp, đánh dấu bài nổi bật.<br><b> Theo dõi tiến trình: </b>Xem lịch sử nộp bài, thời gian hoàn thành và phản hồi đã gửi.</p>
+          <a href="course-detail.html?id=tienganh8" class="feature-button">Xem chi tiết</a>
+        </div>
+      </div>
+
+      <!-- Feature 6 -->
+      <div class="feature-card">
+        <div class="feature-content">
+          <h3 class="feature-title">KHO HỌC LIỆU ĐA DẠNG - SẴN SÀNG CHO MỌI BÀI GIẢNG</h3>
+          <p class="feature-description">Kho học liệu phong phú giúp giáo viên tiết kiệm thời gian soạn bài, chia sẻ tài nguyên, đồng thời tạo một hệ thống giảng dạy thống nhất và hiệu quả.<br><b>Điểm nổi bật:</b><br><b>Kho tài nguyên đa dạng: </b>Slide bài giảng, tài liệu tham khảo, bài tập,... theo từng môn học.<br><b>Tự tải lên dễ dàng: </b>Hỗ trợ mọi định dạng docx, pdf, pptx, jpg, png, mp3, mp4...<br><b>Chia sẻ linh hoạt: </b>Chia sẻ tài liệu trong lớp học hoặc với cộng đồng giáo viên.</p>
+          <a href="course-detail.html?id=tienganh8" class="feature-button">Xem chi tiết</a>
+        </div>
+        <img src="Anh/feature 6.png" alt="Feature 6" class="feature-image">
+      </div>
+
+      <!-- Feature 7 -->
+      <div class="feature-card">
+        <img src="Anh/feature 7.png" alt="Feature 7" class="feature-image">
+        <div class="feature-content">
+          <h3 class="feature-title">CỘNG ĐỒNG GIÁO VIÊN - KẾT NỐI, LAN TỎA VÀ CHIA SẺ</h3>
+          <p class="feature-description">Nơi để giáo viên chia sẻ kinh nghiệm, đặt câu hỏi, đăng bài viết và trao đổi tài liệu cùng nhau – xây dựng một mạng lưới giảng dạy hiệu quả và truyền cảm hứng.<br><b>Điểm nổi bật:</b><br><b>Diễn đàn chuyên đề: </b>Theo từng môn học, chương, chủ đề, bài học, nhóm lớp.<br><b>Bài viết chia sẻ: </b>Thầy cô có thể đăng tải kinh nghiệm dạy học, mẹo giảng bài hay.<br><b>Hệ thống tương tác: </b>Bình luận, thích, lưu bài viết và gắn tag giáo viên yêu thích.</p>
+          <a href="course-detail.html?id=tienganh8" class="feature-button">Xem chi tiết</a>
+        </div>
+      </div>
+
+      <!-- Feature 8 -->
+      <div class="feature-card">
+        <div class="feature-content">
+          <h3 class="feature-title">HỖ TRỌ TẬN TÂM - ĐỒNG HÀNH CÙNG GIÁO VIÊN 24/7</h3>
+          <p class="feature-description">Trung tâm hỗ trợ luôn sẵn sàng lắng nghe, tư vấn và giải đáp mọi vấn đề kỹ thuật hoặc khó khăn trong quá trình sử dụng nền tảng.<br><b>Điểm nổi bật:</b><br><b>Live chat nhanh chóng: </b>Nhắn tin trực tiếp với đội ngũ hỗ trợ ngay trên nền tảng.<br><b>Hướng dẫn chi tiết: </b>Tài liệu, video hướng dẫn sử dụng từng chức năng.<br><b>Phản hồi & cải tiến: </b>Tiếp nhận góp ý để cải tiến nền tảng liên tục.</p>
+          <a href="course-detail.html?id=tienganh8" class="feature-button">Xem chi tiết</a>
+        </div>
+        <img src="Anh/feature 8.png" alt="Feature 8" class="feature-image">
+      </div>
+    </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-container">
+ 
+      <!-- CỘT 1 -->
+      <div class="footer-col">
+        <h2><span class="highlight">GoLearn.com</span></h2>
+        <p class="slogan">Trang web chia sẻ nội dung kiến thức miễn phí dành cho học sinh THCS.</p>
+      </div>
+
+      <!-- CỘT 2 -->
+      <div class="footer-col">
+        <h3>CHÍNH SÁCH</h3>
+        <ul>
+          <li><a href="#">Chính sách bảo mật</a></li>
+          <li><a href="#">Thanh toán</a></li>
+          <li><a href="#">Đổi trả khóa học</a></li>
+          <li><a href="#">Tuyển dụng</a></li>
+        </ul>
+      </div>
+
+      <!-- CỘT 3 -->
+      <div class="footer-col">
+        <h3>LIÊN HỆ</h3>
+        <p><i class="fas fa-map-marker-alt contact-icon"></i> Tòa C0, số 182 Lương Thế Vinh, Thanh Xuân, Hà Nội</p>
+        <p><i class="fas fa-phone contact-icon"></i> 084 283 45 85</p>
+        <p><i class="fas fa-envelope contact-icon"></i> <a href="mailto:golearnteam@gmail.com">golearnteam@gmail.com</a></p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2025 Copyright belongs to GoLearn website. Copying in any form is prohibited without written consent.</p>
+    </div>
+  </footer>
+
+  <script src="home_teacher.js"></script>
+</body>
+</html>
