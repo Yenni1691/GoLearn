@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GoLearn Blog</title>
+  <link rel="stylesheet" href="blog.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <script src="blog.js"></script>
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="navbar">
+    <div class="navbar-left">
+      <div class="logo">
+        <img src="LogoGoLearn.png" alt="Logo" />
+      </div>
+    </div>
+
+    <nav class="navbar-right">
+      <a href="#">HOME</a>
+      <a href="#">BLOG</a>
+      <div class="subject-menu">
+        <a href="#">COURSE</a>
+        <ul class="subject-dropdown">
+          <li><a href="#">TOÁN</a></li>
+          <li><a href="#">NGỮ VĂN</a></li>
+          <li><a href="#">TIẾNG ANH</a></li>
+          <li><a href="#">VẬT LÍ</a></li>
+          <li><a href="#">HÓA HỌC</a></li>
+          <li><a href="#">SINH HỌC</a></li>
+          <li><a href="#">LỊCH SỬ</a></li>
+          <li><a href="#">ĐỊA LÍ</a></li>
+        </ul>
+      </div>
+
+      <div class="notification">
+        <i class="fas fa-bell"></i>
+        <span class="badge" id="notification-count">0</span>
+      </div>
+
+      <div class="avatar-menu">
+        <div class="avatar-icon" onclick="toggleDropdown()" title="Tài khoản">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-user" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zm0 2c-3.3 0-10 1.7-10 5v2h20v-2c0-3.3-6.7-5-10-5z"/>
+          </svg>
+        </div>
+
+        <div class="dropdown" id="dropdown">
+          <div class="student-name" id="student-name">Tên học sinh</div>
+          <a href="#">PROFILE</a>
+          <a href="#">SETTING</a>
+          <a href="#">STATISTICS</a>
+          <a href="#">SUPPORT</a>
+          <hr />
+          <a href="#" class="logout">LOG OUT</a>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+
+    <!-- SLIDESHOW -->
+    <div class="go-slideshow">
+      <div class="go-slide active">
+        <img src="Slide1.png" alt="Slide 1">
+      </div>
+      <div class="go-slide">
+        <img src="Slide2.png" alt="Slide 2">
+      </div>
+      <div class="go-slide">
+        <img src="Slide3.png" alt="Slide 3">
+      </div>
+      <!-- NÚT ĐIỀU HƯỚNG -->
+      <button class="go-slide-prev" onclick="prevSlide()">&#10094;</button>
+      <button class="go-slide-next" onclick="nextSlide()">&#10095;</button>
+    </div>
+    <div class="go-container"></div>
+
+    <!-- NỘI DUNG CHÍNH -->
+    <div class="go-main">
+      <!-- BÀI VIẾT -->
+      <div class="go-posts">
+        <div class="tin-bai">
+          <img src="daoham.webp" alt="Toán học">
+          <div class="go-post-content">
+            <h3>10 bí quyết giúp bạn tự học tiếng Anh tại nhà hiệu quả</h3>
+            <p>Áp dụng 10 bí quyết sau để nâng trình tiếng Anh của bạn.</p>
+            <p><strong>Toán học</strong> - 10/04/2025</p>
+            <a href="10 bq hoc TA tai nha.html" class="btn-readmore">XEM CHI TIẾT »</a>
+          </div>
+        </div>
+
+        <div class="tin-bai">
+          <img src="daoham.webp" alt="Toán học">
+          <div class="go-post-content">
+            <h3>Khám phá thế giới Toán học</h3>
+            <p>Môn Toán là nền tảng của nhiều ngành khoa học...</p>
+            <p><strong>Toán học</strong> - 10/04/2025</p>
+            <a href="#" class="btn-readmore">XEM CHI TIẾT »</a>
+          </div>
+        </div>
+
+        <div class="tin-bai">
+          <img src="literature.jpg" alt="Văn học">
+          <div class="go-post-content">
+            <h3>Đọc và cảm nhận Văn học Việt</h3>
+            <p>Những tác phẩm kinh điển như Truyện Kiều, Chí Phèo...</p>
+            <p><strong>Ngữ văn</strong> - 08/04/2025</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- SIDEBAR -->
+      <aside class="cot-ben-phai">
+        <!-- TÌM KIẾM -->
+        <div class="hop-tim-kiem">
+          <input id="searchInput" type="text" placeholder="Tìm kiếm..." onkeypress="handleKeyPress(event)" />
+          <button onclick="handleSearch()">🔍</button>
+        </div>
+
+        <!-- TIN NỔI BẬT -->
+        <div class="tin-noi-bat">
+          <h4>TIN NỔI BẬT</h4>
+          <div class="tin-noi-bat-item">
+            <img src="hoc-tieng-Anh.jpg" alt="English">
+            <div>
+              <p><strong>1. Cách học tiếng Anh hiệu quả mỗi ngày</strong></p>
+              <p>20/03/2025</p>
+            </div>
+          </div>
+
+          <div class="tin-noi-bat-item">
+            <img src="physics.jpg" alt="Vật lý">
+            <div>
+              <p><strong>2. Thí nghiệm vật lý hấp dẫn dễ làm</strong></p>
+              <p>18/03/2025</p>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <!-- ===== FOOTER ===== -->
+<footer class="footer">
+    <div class="footer-col">
+      <h2>GoLearn.com</h2>
+      <p>Trang web chia sẻ nội dung kiến thức miễn phí dành cho học sinh THCS.</p>
+      
+    </div>
+    <div class="footer-col">
+      <h3>CHÍNH SÁCH</h3>
+      <ul>
+        <li>Chính sách bảo mật</li>
+        <li>Thanh toán</li>
+        <li>Đổi trả khóa học</li>
+        <li>Tuyển dụng</li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h3>LIÊN HỆ</h3>
+      <p><i class="fas fa-map-marker-alt"></i> Tòa C0, số 182 Lương Thế Vinh, Thanh Xuân, Hà Nội</p>
+      <p><i class="fas fa-phone-alt"></i> 084 283 45 85</p>
+      <p><i class="fas fa-envelope"></i> golearnteam@gmail.com</p>
+    </div>
+  </footer>
+
+</body>
+</html>
