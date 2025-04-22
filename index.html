@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GoLearn</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background-color: #f0f4f8;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    .menu {
+      background-color: #004466;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .logo img {
+      height: 60px;
+      vertical-align: middle;
+    }
+
+    .main-menu {
+      list-style: none;
+      display: flex;
+      align-items: center;
+    }
+
+    .main-menu li {
+      position: relative;
+      margin-left: 10px;
+    }
+
+    .main-menu li a {
+      color: white;
+      text-decoration: none;
+      /*font-weight: bold;*/
+      padding: 10px;
+      display: block;
+    }
+
+    .main-menu li a:hover {
+      
+      background-color: #f0f0f0;
+      color:  #ffcc00;
+      border-radius: 5px;
+    }
+
+    .sub-menu {
+      display: none;
+      padding: 0;
+      margin: 0;
+      position: absolute;
+      background-color: #2a6ebb;
+      list-style: none;
+      top: 100%;
+      left: 0;
+      min-width: 125px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      font-weight: normal;
+    }
+
+    .sub-menu li a:hover  {
+      padding: 0px;
+      color: #ffcc00;
+    }
+    .sub-menu li a {
+      padding: 5px;
+      font-weight: normal;
+    }
+
+    .main-menu li:hover > .sub-menu {
+      
+      display: block;
+    }
+
+    .sub-menu .sub-menu {
+      top: 0;
+      left: 100%;
+    }
+
+    .main-menu li .icon {
+      color: white;
+      font-size: 20px;
+      padding: 10px;
+      position: relative;
+    }
+
+    .main-menu li .icon:hover {
+      background-color: #004466;
+      border-radius: 5px;
+    }
+
+    .sidebar {
+      width: 250px;
+      background-color: #2a6ebb;
+      position: fixed;
+      top: 80px;
+      left: 0;
+      padding-top: 20px;
+      color: white;
+      height: calc(100vh - 80px);
+      overflow-y: auto;
+    }
+
+    .sidebar ul {
+      list-style: none;
+    }
+
+    .sidebar ul li {
+      padding: 15px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+    }
+
+    .sidebar ul li i {
+      margin-right: 10px;
+      font-size: 18px;
+    }
+
+    .sidebar ul li:hover {
+      background-color: #1e5aa3;
+    }
+
+    .sidebar ul li.active {
+      background-color: #1e5aa3;
+      border-left: 4px solid #ffcc00;
+    }
+
+    .main-content {
+      margin-left: 250px;
+      margin-top: 80px;
+      padding: 20px;
+      flex: 1;
+    }
+
+    .main-content .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .main-content h1 {
+      color: #2a6ebb;
+    }
+
+    .card {
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    .card.highlight {
+      border-left: 4px solid #ffcc00;
+    }
+
+    .start-course-btn {
+      background-color: #2a6ebb;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .start-course-btn:hover {
+      background-color: #004466;
+      color: #d9ff00;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      margin-left: 200Px;
+      left: 10px;
+      /*width: 100%;*/
+      top: 50px;
+      height: 100%;
+      background-color: rgba(245, 245, 245, 0.5);
+      z-index: 2000;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background-color: white;
+      padding: 20px;
+      border-radius: 5px;
+      width: 400px;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      position: relative;
+    }
+
+    .modal-content h3 {
+      margin-bottom: 15px;
+      font-size: 18px;
+    }
+
+    .modal-content label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    .modal-content input {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+
+    .modal-content .buttons {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    .modal-content button {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .modal-content .cancel-btn {
+      background-color: hsl(0, 0%, 94%);
+      color: #333;
+    }
+
+    .modal-content .create-btn {
+      background-color: #004466;
+      color: white;
+    }
+
+    .modal-content .cancel-btn:hover {
+      background-color: #e0e0e0;
+    }
+
+    .modal-content .create-btn:hover {
+      background-color: #004466;
+    }
+
+    .modal-content .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: none;
+      border: none;
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    /* CSS cho phần Chi tiết khóa học */
+    .course-details {
+      display: none;
+      margin-left: 250px;
+      margin-top: 80px;
+      padding: 20px;
+      flex: 1;
+      display: flex;
+      gap: 20px;
+    }
+
+    .left, .right {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .left {
+      flex: 2;
+    }
+
+    .right {
+      flex: 1;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: #333;
+    }
+
+    .form-group input, .form-group select {
+      width: 100%;
+      padding: 8px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
+
+    .btn-group button {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border: none;
+      background-color: #f1f1f1;
+      text-align: left;
+      font-size: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      color: #333;
+      border-radius: 5px;
+    }
+
+    .btn-group button i {
+      margin-right: 10px;
+      color: #666;
+    }
+
+    .btn-group button:hover {
+      background-color: #e0e0e0;
+    }
+
+    .status {
+      font-weight: bold;
+      margin-bottom: 20px;
+      color: #333;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .status-buttons {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .status-buttons button {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .status-buttons .publish-btn {
+      background-color: #0d6efd;
+      color: white;
+    }
+
+    .status-buttons .unpublish-btn {
+      background-color: #dc3545;
+      color: white;
+    }
+
+    .status-buttons .publish-btn:hover {
+      background-color: #004466;
+    }
+
+    .status-buttons .unpublish-btn:hover {
+      background-color: #c82333;
+    }
+
+    .image-picker {
+      border: 1px dashed #ccc;
+      padding: 20px;
+      text-align: center;
+      cursor: pointer;
+      margin-bottom: 20px;
+      color: #666;
+      font-size: 14px;
+    }
+
+    h2 {
+      font-size: 24px;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    /* CSS cho phần Xem tiến trình */
+    .left {
+      flex: 2;
+      height: calc(100vh - 120px);
+      overflow-y: auto;
+    }
+
+    .right {
+      flex: 1;
+      height: calc(100vh - 120px);
+      overflow-y: auto;
+    }
+
+    .left h2 {
+      font-size: 24px;
+      color: #333;
+      margin-bottom: 20px;
+      display: inline-block;
+    }
+
+    .left .buttons {
+      float: right;
+      display: flex;
+      gap: 10px;
+    }
+
+    .left .buttons button {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .left .buttons .publish-btn {
+      background-color: #0d6efd;
+      color: white;
+    }
+
+    .left .buttons .module-btn {
+      background-color: #f1f1f1;
+      color: #333;
+    }
+
+    .left .buttons button:hover {
+      opacity: 0.9;
+    }
+
+    .right h3 {
+      font-size: 18px;
+      color: #333;
+      margin-bottom: 15px;
+    }
+
+    .right ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .right ul li {
+      padding: 10px 0;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      align-items: center;
+    }
+
+    .right ul li i {
+      margin-right: 10px;
+      color: #666;
+    }
+
+    .right ul li a {
+      color: #0d6efd;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .right ul li a:hover {
+      text-decoration: underline;
+    }
+
+    /* Danh sách các mục đã thêm */
+    .item-list {
+      margin-top: 20px;
+    }
+
+    .item-card {
+      background-color: #f9f9f9;
+      padding: 15px;
+      border-radius: 5px;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border: 1px solid #ddd;
+    }
+
+    .item-card .item-info {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .item-card .item-info i {
+      color: #0d6efd;
+    }
+
+    .item-card .item-info span {
+      font-size: 16px;
+      color: #333;
+    }
+
+    .item-card .item-content {
+      margin-top: 10px;
+      font-size: 14px;
+      color: #555;
+    }
+
+    .item-card .item-content a {
+      color: #004466;
+      text-decoration: none;
+    }
+
+    .item-card .item-content a:hover {
+      text-decoration: underline;
+    }
+
+    /* Thanh kéo xuống tùy chỉnh */
+    .left::-webkit-scrollbar,
+    .right::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .left::-webkit-scrollbar-track,
+    .right::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 4px;
+    }
+
+    .left::-webkit-scrollbar-thumb,
+    .right::-webkit-scrollbar-thumb {
+      background: #888;
+      border-radius: 4px;
+    }
+
+    .left::-webkit-scrollbar-thumb:hover,
+    .right::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
+
+    /* Modal Thêm Học Phần */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 90px;
+      left: 260px;
+      width: 400px;
+      z-index: 2000;
+    }
+
+    .modal-content {
+      background-color: white;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      position: relative;
+      border: 1px solid #ddd;
+    }
+
+    .modal-content h3 {
+      margin-bottom: 15px;
+      font-size: 18px;
+      display: inline-block;
+    }
+
+    .modal-content .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: none;
+      border: none;
+      font-size: 18px;
+      cursor: pointer;
+      color: #0d6efd;
+    }
+
+    .modal-content label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    .modal-content input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      border-color: #ff0000;
+    }
+
+    .modal-content .required {
+      color: #ff0000;
+      display: inline;
+    }
+
+    .modal-content .checkbox {
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .modal-content .checkbox input {
+      margin: 0;
+    }
+
+    .modal-content .prerequisite {
+      color: #0d6efd;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      margin-bottom: 15px;
+    }
+
+    .modal-content .prerequisite:hover {
+      text-decoration: underline;
+    }
+
+    .modal-content .buttons {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      border-top: 1px solid #ddd;
+      padding-top: 15px;
+    }
+
+    .modal-content button {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .modal-content .cancel-btn {
+      background-color: #f0f0f0;
+      color: #333;
+      border: 1px solid #ddd;
+    }
+
+    .modal-content .add-btn {
+      background-color: #0d6efd;
+      color: white;
+    }
+
+    .modal-content .cancel-btn:hover {
+      background-color: #e0e0e0;
+    }
+
+    .modal-content .add-btn:hover {
+      background-color: #0056b3;
+    }
+
+    /* Modal Thêm Mục vào bài 1 */
+    .modal-content select {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+
+    .modal-content textarea {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      resize: vertical;
+      height: 100px;
+      position: relative;
+    }
+
+    .modal-content .input-container {
+      position: relative;
+    }
+
+    .modal-content .add-icon {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      background-color: #0d6efd;
+      color: white;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .modal-content .add-icon:hover {
+      background-color: #0056b3;
+    }
+
+    .modal-content input[type="text"].item-name {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <nav class="menu">
+    <div class="logo">
+      <img src="Logo.png" alt="GoLearn Logo" style="height: 60px;" />
+    </div>
+    <ul class="main-menu">
+      <li><a href="#">HOME</a></li>
+      <li><a href="#">BLOG</a></li>
+      <li><a href="#">COURSE</a>
+        <ul class="sub-menu">
+          <li><a href="#">TOÁN</a></li>
+          <li><a href="#">NGỮ VĂN</a></li>
+          <li><a href="#">TIẾNG ANH</a>
+            <ul class="sub-menu">
+              <li><a href="#">LỚP 6</a></li>
+              <li><a href="#">LỚP 7</a></li>
+              <li><a href="#">LỚP 8</a></li>
+              <li><a href="#">LỚP 9</a></li>
+            </ul>
+          </li>
+          <li><a href="#">VẬT LÝ</a></li>
+          <li><a href="#">HÓA HỌC</a></li>
+          <li><a href="#">SINH HỌC</a></li>
+          <li><a href="#">LỊCH SỬ</a></li>
+          <li><a href="#">ĐỊA LÝ</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#" class="icon"><i class="fas fa-bell"></i></a>
+      </li>
+      <li>
+        <a href="login_with.html" class="icon"><i class="fas fa-user"></i></a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="sidebar">
+    <ul>
+      <li class="active"><i class="fas fa-book"></i> Khóa học</li>
+      <li><i class="fas fa-users"></i> Danh sách học sinh</li>
+      <li><i class="fas fa-file-alt"></i> Bài tập</li>
+    </ul>
+  </div>
+
+  <!-- Giao diện chính ban đầu -->
+  <div class="main-content" id="mainContent">
+    <div class="header">
+      <h1>GoLearn.com</h1>
+      <button class="start-course-btn" onclick="openModal()">Bắt đầu một khóa học mới</button>
+    </div>
+    <div class="card">
+      <p>Thông báo: Hãy cho chúng tôi biết cách thức và thời điểm bạn muốn nhận thông báo về các sự kiện trong Golearn.</p>
+    </div>
+    <div class="card highlight">
+      <p>Chào mừng bạn đến với Golearn! Bạn không có bất kỳ khóa học nào, vì vậy trang này sẽ không thể hiển thị thêm thông tin vào lúc này. Khi bạn đăng ký học, bạn sẽ biết được các thông tin cụ thể, truy cập trực tiếp các thông tin cần.</p>
+    </div>
+  </div>
+
+  <!-- Modal tạo khóa học -->
+  <div class="modal" id="courseModal">
+    <div class="modal-content">
+      <button class="close-btn" onclick="closeModal()">×</button>
+      <h3>Tạo khóa học</h3>
+      <label for="courseName">Tên khóa học</label>
+      <input type="text" id="courseName" placeholder="Tên...">
+      <div class="buttons">
+        <button class="cancel-btn" onclick="closeModal()">Hủy</button>
+        <button class="create-btn" onclick="createCourse()">Tạo</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Giao diện Chi tiết khóa học (ẩn ban đầu) -->
+  <div class="course-details" id="courseDetails">
+    <div class="left">
+      <h2>Chi tiết khóa học</h2>
+      <div class="form-group">
+        <label>Tên</label>
+        <input type="text" id="courseNameInput" placeholder="VD: Toán lớp 6">
+      </div>
+      <div class="form-group">
+        <label>Mã khóa học</label>
+        <input type="text" value="DKA-6">
+      </div>
+      <div class="form-group">
+        <label>Khóa học Blueprint</label>
+        <select>
+          <option>Không</option>
+          <option>Có</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Miền khóa học</label>
+        <input type="text" placeholder="Ví dụ: giaovien.toanlop6.edu.vn">
+      </div>
+      <div class="form-group">
+        <label>Mẫu giao diện</label>
+        <select>
+          <option>Gói mẫu mặc định</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Tham gia</label>
+        <select>
+          <option>Giáo viên, học sinh</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Bắt đầu</label>
+        <input type="date">
+      </div>
+      <div class="form-group">
+        <label>Kết thúc</label>
+        <input type="date">
+      </div>
+    </div>
+
+    <div class="right">
+      <div class="status">
+        <i class="fas fa-circle-notch"></i>
+        <span id="statusText">Chưa xuất bản</span>
+      </div>
+      <div class="btn-group">
+        <button><i class="fas fa-share-square"></i> Chia sẻ lên Commons</button>
+        <button><i class="fas fa-info-circle"></i> Thống kê khóa học</button>
+        <button><i class="fas fa-calendar-alt"></i> Lịch khóa học</button>
+        <button><i class="fas fa-flag-checkered"></i> Kết thúc khóa học</button>
+        <div class="status-buttons">
+          <button class="publish-btn" onclick="publishCourse()">Xuất bản</button>
+          <button class="unpublish-btn" onclick="unpublishCourse()">Hủy xuất bản</button>
+        </div>
+        <button><i class="fas fa-trash-alt"></i> Xóa khóa học</button>
+        <button><i class="fas fa-copy"></i> Sao chép khóa học</button>
+        <button onclick="showProgressView()"><i class="fas fa-upload"></i> Nhập nội dung khóa học</button>
+        <button><i class="fas fa-download"></i> Xuất nội dung khóa học</button>
+        <button><i class="fas fa-undo"></i> Đặt lại nội dung khóa học</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Giao diện Xem tiến trình (ẩn ban đầu) -->
+  <div class="course-details" id="progressView" style="display: none;">
+    <div class="left">
+      <h2>Xem tiến trình</h2>
+      <div class="buttons">
+        <button class="publish-btn"><i class="fas fa-share-square"></i> Phát hành tất cả</button>
+        <button class="module-btn" onclick="openModuleModal()"><i class="fas fa-book-open"></i> Học phần</button>
+      </div>
+      <div class="item-list" id="itemList">
+        <!-- Các mục sẽ được thêm động vào đây -->
+      </div>
+    </div>
+
+    <div class="right">
+      <h3>Trình kích hoạt học tập</h3>
+      <ul>
+        <li><i class="fas fa-plus-circle"></i><a href="#">Mới: Thêm từ khóa học vào lịch Google</a></li>
+        <li><i class="fas fa-upload"></i><a href="#">Nhập từ khóa học</a></li>
+        <li><i class="fas fa-exchange-alt"></i><a href="#">Chuyển trạng thái khóa học</a></li>
+        <li><i class="fas fa-eye"></i><a href="#">Xem khóa học đã lưu</a></li>
+        <li><i class="fas fa-chart-bar"></i><a href="#">Thống kê lớp học</a></li>
+        <li><i class="fas fa-book"></i><a href="#">Phân bổ môn học</a></li>
+        <li><i class="fas fa-calendar-alt"></i><a href="#">Xem lịch môn học</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Modal Thêm Học Phần -->
+  <div class="modal" id="addModuleModal">
+    <div class="modal-content">
+      <h3>Thêm Học Phần</h3>
+      <button class="close-btn" onclick="closeModuleModal()">×</button>
+      <label for="moduleName">Tên Học Phần <span class="required">*</span></label>
+      <input type="text" id="moduleName" placeholder="">
+      <div class="checkbox">
+        <input type="checkbox" id="lockUntil" style="width: 100Px;">
+        <label for="lockUntil">Khóa Đến Khi</label>
+      </div>
+      <a href="#" class="prerequisite"><i class="fas fa-plus"></i> Điều kiện tiên quyết</a>
+      <div class="buttons">
+        <button class="cancel-btn" onclick="closeModuleModal()">Hủy</button>
+        <button class="add-btn" onclick="addModule()">Thêm Học Phần</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Thêm Mục -->
+  <div class="modal" id="addItemModal">
+    <div class="modal-content">
+      <button class="close-btn" onclick="closeItemModal()">×</button>
+      <label for="itemType">Thêm</label>
+      <select id="itemType" onchange="updateItemForm()">
+        <option value="Bài Tập">Bài Tập</option>
+        <option value="Kiểm Tra">Kiểm Tra</option>
+        <option value="Tập Tin">Tập Tin</option>
+        <option value="Thảo Luận">Thảo Luận</option>
+        <option value="Đầu Trang Văn Bản">Đầu Trang Văn Bản</option>
+        <option value="URL Ngoại">URL Ngoại</option>
+        <option value="Công Cụ Ngoại">Công Cụ Ngoại</option>
+      </select>
+      <div id="itemForm">
+        <!-- Nội dung động sẽ được cập nhật bởi JavaScript -->
+      </div>
+      <label for="alignment">Căn lề</label>
+      <select id="alignment">
+        <option>Không Căn Lề</option>
+      </select>
+      <div class="buttons">
+        <button class="cancel-btn" onclick="closeItemModal()">Hủy</button>
+        <button class="add-btn" onclick="addItem()">Thêm Mục</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function openModal() {
+      document.getElementById('courseModal').style.display = 'flex';
+    }
+
+    function closeModal() {
+      document.getElementById('courseModal').style.display = 'none';
+    }
+
+    function createCourse() {
+      const courseName = document.getElementById('courseName').value;
+      if (courseName) {
+        // Ẩn giao diện chính
+        document.getElementById('mainContent').style.display = 'none';
+        // Hiển thị giao diện Chi tiết khóa học
+        document.getElementById('courseDetails').style.display = 'flex';
+        // Điền tên khóa học vào form
+        document.getElementById('courseNameInput').value = courseName;
+        // Đóng modal
+        closeModal();
+      } else {
+        alert('Vui lòng nhập tên khóa học!');
+      }
+    }
+
+    function publishCourse() {
+      document.getElementById('statusText').textContent = 'Đã xuất bản';
+      // Ẩn giao diện Chi tiết khóa học
+      document.getElementById('courseDetails').style.display = 'none';
+      // Hiển thị giao diện Xem tiến trình
+      document.getElementById('progressView').style.display = 'flex';
+    }
+
+    function unpublishCourse() {
+      document.getElementById('statusText').textContent = 'Chưa xuất bản';
+    }
+
+    function showProgressView() {
+      // Ẩn giao diện Chi tiết khóa học
+      document.getElementById('courseDetails').style.display = 'none';
+      // Hiển thị giao diện Xem tiến trình
+      document.getElementById('progressView').style.display = 'flex';
+    }
+
+    function openModuleModal() {
+      document.getElementById('addModuleModal').style.display = 'block';
+    }
+
+    function closeModuleModal() {
+      document.getElementById('addModuleModal').style.display = 'none';
+    }
+
+    function openItemModal() {
+      document.getElementById('addItemModal').style.display = 'block';
+      updateItemForm(); // Cập nhật giao diện ban đầu
+    }
+
+    function closeItemModal() {
+      document.getElementById('addItemModal').style.display = 'none';
+    }
+
+    function addModule() {
+      const moduleName = document.getElementById('moduleName').value;
+      if (moduleName) {
+        closeModuleModal();
+        openItemModal();
+      } else {
+        alert('Vui lòng nhập tên học phần!');
+      }
+    }
+
+    function updateItemForm() {
+      const itemType = document.getElementById('itemType').value;
+      const itemForm = document.getElementById('itemForm');
+      let content = '';
+
+      if (itemType === 'Bài Tập') {
+        content = `
+          <div class="input-container">
+            <textarea id="itemContent" placeholder="Nhập nội dung bài tập">[ Tạo Bài Tập ]
+Bài tập</textarea>
+            <div class="add-icon" onclick="postItem('Bài Tập')"><i class="fas fa-plus"></i></div>
+          </div>
+        `;
+      } else if (itemType === 'Kiểm Tra') {
+        content = `
+          <div class="input-container">
+            <input type="text" id="itemContent" class="item-name" placeholder="Nhập liên kết kiểm tra (Ví dụ: https://example.com)">
+            <div class="add-icon" onclick="postItem('Kiểm Tra')"><i class="fas fa-plus"></i></div>
+          </div>
+        `;
+      } else {
+        content = `
+          <textarea id="itemContent" placeholder="Nhập nội dung cho ${itemType}">[ Tạo ${itemType} ]
+${itemType}</textarea>
+        `;
+      }
+
+      itemForm.innerHTML = content;
+    }
+
+    function postItem(itemType) {
+      const itemContent = document.getElementById('itemContent').value;
+      const itemList = document.getElementById('itemList');
+
+      if (itemContent) {
+        // Tạo một thẻ mới để hiển thị mục đã thêm
+        const itemCard = document.createElement('div');
+        itemCard.className = 'item-card';
+
+        // Thêm biểu tượng và thông tin mục
+        const itemInfo = document.createElement('div');
+        itemInfo.className = 'item-info';
+
+        // Biểu tượng dựa trên loại mục
+        const icon = document.createElement('i');
+        if (itemType === 'Bài Tập') {
+          icon.className = 'fas fa-book';
+        } else if (itemType === 'Kiểm Tra') {
+          icon.className = 'fas fa-check-square';
+        } else if (itemType === 'Tập Tin') {
+          icon.className = 'fas fa-file-alt';
+        } else if (itemType === 'Thảo Luận') {
+          icon.className = 'fas fa-comments';
+        } else if (itemType === 'Đầu Trang Văn Bản') {
+          icon.className = 'fas fa-heading';
+        } else if (itemType === 'URL Ngoại') {
+          icon.className = 'fas fa-link';
+        } else if (itemType === 'Công Cụ Ngoại') {
+          icon.className = 'fas fa-tools';
+        } else {
+          icon.className = 'fas fa-arrow-right'; // Biểu tượng mặc định cho "tới bài 1"
+        }
+
+        const itemNameSpan = document.createElement('span');
+        itemNameSpan.textContent = `${itemType}`;
+
+        itemInfo.appendChild(icon);
+        itemInfo.appendChild(itemNameSpan);
+        itemCard.appendChild(itemInfo);
+
+        // Thêm nội dung bài tập hoặc liên kết kiểm tra
+        const itemContentDiv = document.createElement('div');
+        itemContentDiv.className = 'item-content';
+        if (itemType === 'Bài Tập') {
+          itemContentDiv.textContent = itemContent;
+        } else if (itemType === 'Kiểm Tra') {
+          const link = document.createElement('a');
+          link.href = itemContent;
+          link.textContent = itemContent;
+          link.target = '_blank';
+          itemContentDiv.appendChild(link);
+        }
+        itemCard.appendChild(itemContentDiv);
+
+        itemList.appendChild(itemCard);
+
+        // Xóa nội dung sau khi đăng
+        document.getElementById('itemContent').value = '';
+      } else {
+        alert('Vui lòng nhập nội dung cho mục!');
+      }
+    }
+
+    function addItem() {
+      const itemType = document.getElementById('itemType').value;
+      const itemContent = document.getElementById('itemContent').value;
+      const itemList = document.getElementById('itemList');
+
+      if (itemContent) {
+        // Tạo một thẻ mới để hiển thị mục đã thêm
+        const itemCard = document.createElement('div');
+        itemCard.className = 'item-card';
+
+        // Thêm biểu tượng và thông tin mục
+        const itemInfo = document.createElement('div');
+        itemInfo.className = 'item-info';
+
+        // Biểu tượng dựa trên loại mục
+        const icon = document.createElement('i');
+        if (itemType === 'Bài Tập') {
+          icon.className = 'fas fa-book';
+        } else if (itemType === 'Kiểm Tra') {
+          icon.className = 'fas fa-check-square';
+        } else if (itemType === 'Tập Tin') {
+          icon.className = 'fas fa-file-alt';
+        } else if (itemType === 'Thảo Luận') {
+          icon.className = 'fas fa-comments';
+        } else if (itemType === 'Đầu Trang Văn Bản') {
+          icon.className = 'fas fa-heading';
+        } else if (itemType === 'URL Ngoại') {
+          icon.className = 'fas fa-link';
+        } else if (itemType === 'Công Cụ Ngoại') {
+          icon.className = 'fas fa-tools';
+        } else {
+          icon.className = 'fas fa-arrow-right';
+        }
+
+        const itemNameSpan = document.createElement('span');
+        itemNameSpan.textContent = `${itemType}`;
+
+        itemInfo.appendChild(icon);
+        itemInfo.appendChild(itemNameSpan);
+        itemCard.appendChild(itemInfo);
+
+        // Thêm nội dung bài tập hoặc liên kết kiểm tra
+        const itemContentDiv = document.createElement('div');
+        itemContentDiv.className = 'item-content';
+        if (itemType === 'Bài Tập') {
+          itemContentDiv.textContent = itemContent;
+        } else if (itemType === 'Kiểm Tra') {
+          const link = document.createElement('a');
+          link.href = itemContent;
+          link.textContent = itemContent;
+          link.target = '_blank';
+          itemContentDiv.appendChild(link);
+        } else {
+          itemContentDiv.textContent = itemContent;
+        }
+        itemCard.appendChild(itemContentDiv);
+
+        itemList.appendChild(itemCard);
+
+        // Đóng modal sau khi thêm
+        closeItemModal();
+      } else {
+        alert('Vui lòng nhập nội dung cho mục!');
+      }
+    }
+  </script>
+</body>
+</html>

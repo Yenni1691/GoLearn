@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Giao diện khóa học</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Arial, sans-serif;
+    }
+
+    body {
+      background-color: #f4f7fb;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    .header {
+      background: linear-gradient(90deg, #004d80, #007bb5);
+      color: white;
+      padding: 15px 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .header img {
+      height: 60px;
+      vertical-align: middle;
+      transition: transform 0.3s ease;
+    }
+
+    .header img:hover {
+      transform: scale(1.1);
+    }
+
+    .main-menu {
+      list-style: none;
+      display: flex;
+      align-items: center;
+    }
+
+    .main-menu li {
+      position: relative;
+      margin-left: 20px;
+    }
+
+    .main-menu li a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      padding: 8px 15px;
+      border-radius: 5px;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .main-menu li a:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+    }
+
+    .sub-menu {
+      display: none;
+      position: absolute;
+      background-color: #2a6ebb;
+      list-style: none;
+      top: 100%;
+      left: 0;
+      min-width: 150px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .sub-menu li a {
+      padding: 10px;
+      font-weight: normal;
+      display: block;
+      color: white;
+    }
+
+    .sub-menu li a:hover {
+      background-color: #1e5aa3;
+    }
+
+    .main-menu li:hover > .sub-menu {
+      display: block;
+    }
+
+    .sub-menu .sub-menu {
+      top: 0;
+      left: 100%;
+    }
+
+    .main-menu li .icon {
+      color: white;
+      font-size: 20px;
+      padding: 10px;
+      position: relative;
+    }
+
+    .main-menu li .icon:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+      border-radius: 5px;
+      transform: translateY(-2px);
+    }
+
+    .container {
+      display: flex;
+      margin-top: 60px; /* Giảm margin-top để khớp với header */
+    }
+
+    .sidebar {
+      width: 250px;
+      background-color: #2a6ebb; /* Màu yêu cầu */
+      padding: 20px;
+      min-height: calc(100vh - 60px); /* Điều chỉnh chiều cao để khớp với header */
+      position: fixed;
+      top: 55px; /* Đẩy sidebar lên gần logo */
+      left: 0;
+      color: white;
+    }
+
+    .sidebar ul {
+      list-style: none;
+    }
+
+    .sidebar ul li {
+      padding: 15px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .sidebar ul li i {
+      margin-right: 10px;
+      font-size: 18px;
+    }
+
+    .sidebar ul li:hover {
+      background-color: #1e5aa3;
+      transform: translateX(5px);
+    }
+
+    .sidebar ul li.active {
+      background-color: #1e5aa3;
+      border-left: 4px solid #ffcc00;
+    }
+
+    .main {
+      flex: 1;
+      padding: 20px;
+      margin-left: 250px;
+      margin-right: 280px;
+      margin-top: 60px; /* Giảm margin-top để khớp với header */
+    }
+
+    .main .no-module {
+      border: 2px solid #b187f2;
+      background-color: #f7f3ff;
+      padding: 25px;
+      font-size: 18px;
+      color: #444;
+      text-align: center;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .main .no-module:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .right-panel {
+      width: 280px;
+      background-color: #f9fafc;
+      padding: 20px;
+      border-left: 1px solid #e0e0e0;
+      position: fixed;
+      right: 0;
+      top: 60; /* Điều chỉnh top để khớp với header */
+      min-height: calc(100vh - 60px);
+    }
+
+    .right-panel button {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      margin-bottom: 12px;
+      padding: 12px 15px;
+      background-color: #ffffff;
+      border: 1px solid #d1d9e6;
+      border-radius: 8px;
+      cursor: pointer;
+      text-align: left;
+      font-size: 15px;
+      color: #333;
+      transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .right-panel button:hover {
+      background-color: #e6f0fa;
+      transform: translateX(3px);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .right-panel button i {
+      color: #007bb5;
+    }
+
+    .todo {
+      margin-top: 25px;
+      color: #666;
+      background-color: #fff;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    }
+
+    .todo h4 {
+      margin: 0 0 10px;
+      color: #004d80;
+      font-size: 16px;
+      border-bottom: 1px solid #e0e0e0;
+      padding-bottom: 5px;
+    }
+
+    .todo p {
+      margin: 5px 0;
+      font-size: 14px;
+    }
+
+    .notification {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #28a745;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 5px;
+      display: none;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+      z-index: 2000;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div><img src="Logo.png" alt="Logo"></div>
+    <ul class="main-menu">
+      <li><a href="#">HOME</a></li>
+      <li><a href="#">BLOG</a></li>
+      <li><a href="#">COURSE</a>
+        <ul class="sub-menu">
+          <li><a href="#">TOÁN</a></li>
+          <li><a href="#">NGỮ VĂN</a></li>
+          <li><a href="#">TIẾNG ANH</a>
+            <ul class="sub-menu">
+              <li><a href="#">LỚP 6</a></li>
+              <li><a href="#">LỚP 7</a></li>
+              <li><a href="#">LỚP 8</a></li>
+              <li><a href="#">LỚP 9</a></li>
+            </ul>
+          </li>
+          <li><a href="#">VẬT LÝ</a></li>
+          <li><a href="#">HÓA HỌC</a></li>
+          <li><a href="#">SINH HỌC</a></li>
+          <li><a href="#">LỊCH SỬ</a></li>
+          <li><a href="#">ĐỊA LÝ</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#" class="icon"><i class="fas fa-bell"></i></a>
+      </li>
+      <li>
+        <a href="#" class="icon"><i class="fas fa-user"></i></a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="container">
+    <div class="sidebar">
+      <ul>
+        <li class="active"><i class="fas fa-book"></i> Khóa học</li>
+        <li><i class="fas fa-calendar-alt"></i> Lịch học</li>
+        <li><i class="fas fa-envelope"></i> Hộp thư đến</li>
+      </ul>
+    </div>
+
+    <div class="main">
+      <div class="no-module">
+        Không có mô-đun nào được xác định cho khóa học này.
+      </div>
+    </div>
+
+    <div class="right-panel">
+      <button onclick="showNotification('Đã xem lượng khóa học')"><i class="fas fa-book"></i> Xem luồng khóa học</button>
+      <button onclick="showNotification('Đã xem lịch khóa học')"><i class="fas fa-calendar-alt"></i> Xem lịch khóa học</button>
+      <button onclick="showNotification('Đã xem thông báo khóa học')"><i class="fas fa-bell"></i> Xem thông báo khóa học</button>
+
+      <div class="todo">
+        <h4>Việc cần làm</h4>
+        <p id="todoText">Không có gì cho bây giờ</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="notification" id="notification"></div>
+
+  <script>
+    function showNotification(message) {
+      const notification = document.getElementById('notification');
+      notification.textContent = message;
+      notification.style.display = 'block';
+      setTimeout(() => {
+        notification.style.display = 'none';
+      }, 3000);
+    }
+
+    function addTodoItem(task) {
+      const todoText = document.getElementById('todoText');
+      if (todoText.textContent === 'Không có gì cho bây giờ') {
+        todoText.textContent = task;
+      } else {
+        const newTask = document.createElement('p');
+        newTask.textContent = task;
+        todoText.parentNode.appendChild(newTask);
+      }
+    }
+
+    setTimeout(() => {
+      addTodoItem('Bạn chưa có bài tập nào cần hoàn thành');
+    }, 5000);
+  </script>
+</body>
+</html>
