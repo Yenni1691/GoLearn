@@ -775,23 +775,6 @@
 
     .course-overview .syllabus-list {
       margin-top: 20px;
-      position: relative;
-    }
-
-    .course-overview .syllabus-list .clear-all-btn {
-      position: absolute;
-      top: -40px;
-      right: 0;
-      background-color: #dc3545;
-      color: white;
-      padding: 8px 16px;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-
-    .course-overview .syllabus-list .clear-all-btn:hover {
-      background-color: #c82333;
     }
 
     .course-overview .syllabus-item {
@@ -1038,7 +1021,6 @@
         <button class="update-btn" onclick="addSyllabusItem()">Thêm vào đề cương</button>
       </div>
       <div class="syllabus-list" id="syllabusList">
-        <button class="clear-all-btn" onclick="clearAllSyllabusItems()">Xóa tất cả học phần</button>
         <!-- Các mục đề cương sẽ được thêm động -->
       </div>
     </div>
@@ -1216,7 +1198,7 @@
                 <div class="edit-btn" onclick="openEditModal(this.closest('.syllabus-item'))">
                   <i class="fas fa-plus"></i>
                 </div>
-                <div class="delete-btn" onclick="deleteSyllabusItem(this.closest('.syllabus-item'))">
+                <div class="delete-btn" onclick="clearSyllabusItemContent(this.closest('.syllabus-item'))">
                   <i class="fas fa-trash"></i>
                 </div>
               </div>
@@ -1289,24 +1271,31 @@
       }
     }
 
-    function deleteSyllabusItem(item) {
-      if (confirm('Bạn có chắc chắn muốn xóa học phần này?')) {
-        item.remove();
-      }
-    }
-
-    function clearAllSyllabusItems() {
-      if (confirm('Bạn có chắc chắn muốn xóa tất cả học phần?')) {
-        const syllabusList = document.getElementById('syllabusList');
-        while (syllabusList.firstChild) {
-          syllabusList.removeChild(syllabusList.firstChild);
-        }
-        // Giữ lại nút "Xóa tất cả học phần"
-        const clearBtn = document.createElement('button');
-        clearBtn.className = 'clear-all-btn';
-        clearBtn.textContent = 'Xóa tất cả học phần';
-        clearBtn.onclick = clearAllSyllabusItems;
-        syllabusList.appendChild(clearBtn);
+    function clearSyllabusItemContent(item) {
+      if (confirm('Bạn có chắc chắn muốn xóa toàn bộ nội dung của học phần này?')) {
+        const materials = item.querySelector('.materials');
+        materials.innerHTML = `
+          <div class="material-item">
+            <p>Video bài giảng: Chưa có</p>
+          </div>
+          <div class="material-item">
+            <p class="assignment">Bài tập: Chưa có</p>
+          </div>
+          <div class="material-item">
+            <p class="quiz">Bài kiểm tra: Chưa có</p>
+          </div>
+          <div class="material-item actions">
+            <div></div>
+            <div class="actions">
+              <div class="edit-btn" onclick="openEditModal(this.closest('.syllabus-item'))">
+                <i class="fas fa-plus"></i>
+              </div>
+              <div class="delete-btn" onclick="clearSyllabusItemContent(this.closest('.syllabus-item'))">
+                <i class="fas fa-trash"></i>
+              </div>
+            </div>
+          </div>
+        `;
       }
     }
 
