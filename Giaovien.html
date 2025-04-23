@@ -46,7 +46,7 @@
 
     .main-menu li {
       position: relative;
-      margin-left: 10px;
+      margin-left: 30px;
     }
 
     .main-menu li a {
@@ -67,23 +67,25 @@
       padding: 0;
       margin: 0;
       position: absolute;
-      background-color: #2a6ebb;
+      background-color: #004466;
       list-style: none;
       top: 100%;
       left: 0;
-      min-width: 125px;
+      min-width: 150px;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
       font-weight: normal;
     }
 
-    .sub-menu li a:hover {
-      padding: 0px;
-      color: #ffcc00;
+    .sub-menu li a {
+      padding: 10px;
+      font-weight: normal;
+      color: white;
     }
 
-    .sub-menu li a {
-      padding: 5px;
-      font-weight: normal;
+    .sub-menu li a:hover {
+      color: #ffcc00;
+      background-color: #f0f0f0;
+      border-radius: 0;
     }
 
     .main-menu li:hover > .sub-menu {
@@ -775,23 +777,6 @@
 
     .course-overview .syllabus-list {
       margin-top: 20px;
-      position: relative;
-    }
-
-    .course-overview .syllabus-list .clear-all-btn {
-      position: absolute;
-      top: -40px;
-      right: 0;
-      background-color: #dc3545;
-      color: white;
-      padding: 8px 16px;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-
-    .course-overview .syllabus-list .clear-all-btn:hover {
-      background-color: #c82333;
     }
 
     .course-overview .syllabus-item {
@@ -828,26 +813,52 @@
       margin-top: 10px;
     }
 
-    .course-overview .syllabus-item .materials .material-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 5px;
+    .course-overview .syllabus-item .materials .subtopic {
+      margin-bottom: 10px;
     }
 
-    .course-overview .syllabus-item .materials p {
+    .course-overview .syllabus-item .materials .subtopic-header {
+      cursor: pointer;
+      font-weight: bold;
+      color: #0d6efd;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 0;
+    }
+
+    .course-overview .syllabus-item .materials .subtopic-header:hover {
+      color: #0056b3;
+    }
+
+    .course-overview .syllabus-item .materials .subtopic-content {
+      display: none;
+      padding-left: 20px;
+      padding-top: 5px;
+    }
+
+    .course-overview .syllabus-item .materials .subtopic-content p {
       font-size: 14px;
       color: #555;
       margin-bottom: 5px;
     }
 
-    .course-overview .syllabus-item .materials a {
+    .course-overview .syllabus-item .materials .subtopic-content a {
       color: #0d6efd;
       text-decoration: none;
     }
 
-    .course-overview .syllabus-item .materials a:hover {
+    .course-overview .syllabus-item .materials .subtopic-content a:hover {
       text-decoration: underline;
+    }
+
+    .course-overview .syllabus-item .materials .subtopic-content ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .course-overview .syllabus-item .materials .subtopic-content ul li {
+      margin-bottom: 5px;
     }
 
     .course-overview .syllabus-item .materials video {
@@ -890,6 +901,26 @@
 
     .course-overview .syllabus-item .materials .delete-btn:hover {
       background-color: #c82333;
+    }
+
+    .course-overview .syllabus-item .materials .subtopic-links {
+      display: flex;
+      gap: 10px;
+      margin-top: 5px;
+    }
+
+    .course-overview .syllabus-item .materials .subtopic-links a {
+      font-size: 12px;
+      color: #666;
+      text-decoration: none;
+      padding: 2px 5px;
+      border-radius: 3px;
+      background-color: #f0f0f0;
+    }
+
+    .course-overview .syllabus-item .materials .subtopic-links a:hover {
+      background-color: #e0e0e0;
+      color: #333;
     }
   </style>
 </head>
@@ -1028,8 +1059,12 @@
           <input type="file" id="lessonVideo" accept="video/*">
         </div>
         <div class="form-group">
-          <label>Bài tập</label>
+          <label>Bài tập (Nội dung hoặc Link)</label>
           <textarea id="assignmentContent" placeholder="Nhập nội dung bài tập hoặc đường link"></textarea>
+        </div>
+        <div class="form-group">
+          <label>Bài tập (Tệp đính kèm - Chọn nhiều file nếu cần)</label>
+          <input type="file" id="assignmentFile" multiple>
         </div>
         <div class="form-group">
           <label>Bài kiểm tra (Link)</label>
@@ -1038,7 +1073,6 @@
         <button class="update-btn" onclick="addSyllabusItem()">Thêm vào đề cương</button>
       </div>
       <div class="syllabus-list" id="syllabusList">
-        <button class="clear-all-btn" onclick="clearAllSyllabusItems()">Xóa tất cả học phần</button>
         <!-- Các mục đề cương sẽ được thêm động -->
       </div>
     </div>
@@ -1094,8 +1128,12 @@
         <input type="file" id="editLessonVideo" accept="video/*">
       </div>
       <div class="form-group">
-        <label>Bài tập</label>
+        <label>Bài tập (Nội dung hoặc Link)</label>
         <textarea id="editAssignmentContent" placeholder="Nhập nội dung bài tập hoặc đường link"></textarea>
+      </div>
+      <div class="form-group">
+        <label>Bài tập (Tệp đính kèm - Chọn nhiều file nếu cần)</label>
+        <input type="file" id="editAssignmentFile" multiple>
       </div>
       <div class="form-group">
         <label>Bài kiểm tra (Link)</label>
@@ -1160,6 +1198,7 @@
       const lessonTitle = document.getElementById('lessonTitle').value;
       const lessonVideo = document.getElementById('lessonVideo').files[0];
       const assignmentContent = document.getElementById('assignmentContent').value;
+      const assignmentFiles = document.getElementById('assignmentFile').files;
       const quizLink = document.getElementById('quizLink').value;
 
       if (lessonTitle) {
@@ -1167,37 +1206,86 @@
         const syllabusItem = document.createElement('div');
         syllabusItem.className = 'syllabus-item';
 
+        const uniqueId = Date.now(); // Unique identifier for this syllabus item
+
         let videoHTML = '';
         if (lessonVideo) {
           const videoURL = URL.createObjectURL(lessonVideo);
           videoHTML = `
-            <div class="material-item">
-              <div>
-                <p>Video bài giảng:</p>
+            <div class="subtopic" id="video-${uniqueId}">
+              <div class="subtopic-header" onclick="toggleSubtopic(this)">
+                <i class="fas fa-chevron-down"></i> Video bài giảng
+              </div>
+              <div class="subtopic-content">
                 <video controls>
                   <source src="${videoURL}" type="${lessonVideo.type}">
                   Trình duyệt của bạn không hỗ trợ phát video.
                 </video>
               </div>
+              <div class="subtopic-links">
+                <a href="#assignment-${uniqueId}" onclick="scrollToSubtopic('assignment-${uniqueId}')">Bài tập</a>
+                <a href="#quiz-${uniqueId}" onclick="scrollToSubtopic('quiz-${uniqueId}')">Bài kiểm tra</a>
+              </div>
             </div>
           `;
         } else {
           videoHTML = `
-            <div class="material-item">
-              <p>Video bài giảng: Chưa có</p>
+            <div class="subtopic" id="video-${uniqueId}">
+              <div class="subtopic-header" onclick="toggleSubtopic(this)">
+                <i class="fas fa-chevron-down"></i> Video bài giảng
+              </div>
+              <div class="subtopic-content">
+                <p>Chưa có video</p>
+              </div>
+              <div class="subtopic-links">
+                <a href="#assignment-${uniqueId}" onclick="scrollToSubtopic('assignment-${uniqueId}')">Bài tập</a>
+                <a href="#quiz-${uniqueId}" onclick="scrollToSubtopic('quiz-${uniqueId}')">Bài kiểm tra</a>
+              </div>
             </div>
           `;
         }
 
-        const assignmentHTML = `
-          <div class="material-item">
-            <p class="assignment">Bài tập: ${assignmentContent ? (assignmentContent.includes('http') ? `<a href="${assignmentContent}" target="_blank">${assignmentContent}</a>` : assignmentContent) : 'Chưa có'}</p>
+        let assignmentHTML = '';
+        let assignmentContentHTML = assignmentContent ? (assignmentContent.includes('http') ? `<a href="${assignmentContent}" target="_blank">${assignmentContent}</a>` : assignmentContent) : 'Chưa có nội dung';
+        let assignmentFilesHTML = '';
+        if (assignmentFiles.length > 0) {
+          assignmentFilesHTML = '<p>Tệp đính kèm:</p><ul>';
+          Array.from(assignmentFiles).forEach(file => {
+            const fileURL = URL.createObjectURL(file);
+            assignmentFilesHTML += `<li><a href="${fileURL}" download="${file.name}">${file.name}</a></li>`;
+          });
+          assignmentFilesHTML += '</ul>';
+        } else {
+          assignmentFilesHTML = '<p>Không có tệp đính kèm</p>';
+        }
+        assignmentHTML = `
+          <div class="subtopic" id="assignment-${uniqueId}">
+            <div class="subtopic-header" onclick="toggleSubtopic(this)">
+              <i class="fas fa-chevron-down"></i> Bài tập
+            </div>
+            <div class="subtopic-content">
+              <p class="assignment">${assignmentContentHTML}</p>
+              ${assignmentFilesHTML}
+            </div>
+            <div class="subtopic-links">
+              <a href="#video-${uniqueId}" onclick="scrollToSubtopic('video-${uniqueId}')">Video bài giảng</a>
+              <a href="#quiz-${uniqueId}" onclick="scrollToSubtopic('quiz-${uniqueId}')">Bài kiểm tra</a>
+            </div>
           </div>
         `;
 
         const quizHTML = `
-          <div class="material-item">
-            <p class="quiz">Bài kiểm tra: ${quizLink ? `<a href="${quizLink}" target="_blank">${quizLink}</a>` : 'Chưa có'}</p>
+          <div class="subtopic" id="quiz-${uniqueId}">
+            <div class="subtopic-header" onclick="toggleSubtopic(this)">
+              <i class="fas fa-chevron-down"></i> Bài kiểm tra
+            </div>
+            <div class="subtopic-content">
+              <p class="quiz">${quizLink ? `<a href="${quizLink}" target="_blank">${quizLink}</a>` : 'Chưa có'}</p>
+            </div>
+            <div class="subtopic-links">
+              <a href="#video-${uniqueId}" onclick="scrollToSubtopic('video-${uniqueId}')">Video bài giảng</a>
+              <a href="#assignment-${uniqueId}" onclick="scrollToSubtopic('assignment-${uniqueId}')">Bài tập</a>
+            </div>
           </div>
         `;
 
@@ -1210,15 +1298,12 @@
             ${videoHTML}
             ${assignmentHTML}
             ${quizHTML}
-            <div class="material-item actions">
-              <div></div>
-              <div class="actions">
-                <div class="edit-btn" onclick="openEditModal(this.closest('.syllabus-item'))">
-                  <i class="fas fa-plus"></i>
-                </div>
-                <div class="delete-btn" onclick="deleteSyllabusItem(this.closest('.syllabus-item'))">
-                  <i class="fas fa-trash"></i>
-                </div>
+            <div class="actions">
+              <div class="edit-btn" onclick="openEditModal(this.closest('.syllabus-item'))">
+                <i class="fas fa-edit"></i>
+              </div>
+              <div class="delete-btn" onclick="clearSyllabusItemContent(this.closest('.syllabus-item'))">
+                <i class="fas fa-trash"></i>
               </div>
             </div>
           </div>
@@ -1229,6 +1314,7 @@
         document.getElementById('lessonTitle').value = '';
         document.getElementById('lessonVideo').value = '';
         document.getElementById('assignmentContent').value = '';
+        document.getElementById('assignmentFile').value = '';
         document.getElementById('quizLink').value = '';
       } else {
         alert('Vui lòng nhập tiêu đề bài học!');
@@ -1243,12 +1329,34 @@
       btn.classList.toggle('fa-chevron-up', isHidden);
     }
 
+    function toggleSubtopic(header) {
+      const content = header.nextElementSibling;
+      const isHidden = content.style.display === 'none';
+      content.style.display = isHidden ? 'block' : 'none';
+      const icon = header.querySelector('i');
+      icon.classList.toggle('fa-chevron-down', !isHidden);
+      icon.classList.toggle('fa-chevron-up', isHidden);
+    }
+
+    function scrollToSubtopic(id) {
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+        const header = element.querySelector('.subtopic-header');
+        const content = element.querySelector('.subtopic-content');
+        if (content.style.display === 'none') {
+          header.click(); // Expand if collapsed
+        }
+      }
+    }
+
     function openEditModal(item) {
       currentEditItem = item;
-      const assignment = item.querySelector('.assignment').innerText.replace('Bài tập: ', '').replace('Chưa có', '');
-      const quiz = item.querySelector('.quiz').innerText.replace('Bài kiểm tra: ', '').replace('Chưa có', '');
+      const assignment = item.querySelector('.assignment').innerText.replace('Chưa có nội dung', '');
+      const quiz = item.querySelector('.quiz').innerText.replace('Chưa có', '');
 
       document.getElementById('editAssignmentContent').value = assignment;
+      document.getElementById('editAssignmentFile').value = ''; // Reset file input
       document.getElementById('editQuizLink').value = quiz;
       document.getElementById('editLessonVideo').value = ''; // Reset file input
       document.getElementById('editItemModal').style.display = 'block';
@@ -1262,51 +1370,101 @@
     function updateSyllabusItem() {
       if (currentEditItem) {
         const newVideo = document.getElementById('editLessonVideo').files[0];
-        const newAssignment = document.getElementById('editAssignmentContent').value;
+        const newAssignmentContent = document.getElementById('editAssignmentContent').value;
+        const newAssignmentFiles = document.getElementById('editAssignmentFile').files;
         const newQuiz = document.getElementById('editQuizLink').value;
 
-        const videoElement = currentEditItem.querySelector('.materials').children[0];
+        const videoSubtopic = currentEditItem.querySelector('.subtopic[id^="video-"]');
         if (newVideo) {
           const videoURL = URL.createObjectURL(newVideo);
-          videoElement.innerHTML = `
-            <div>
-              <p>Video bài giảng:</p>
-              <video controls>
-                <source src="${videoURL}" type="${newVideo.type}">
-                Trình duyệt của bạn không hỗ trợ phát video.
-              </video>
-            </div>
+          videoSubtopic.querySelector('.subtopic-content').innerHTML = `
+            <video controls>
+              <source src="${videoURL}" type="${newVideo.type}">
+              Trình duyệt của bạn không hỗ trợ phát video.
+            </video>
           `;
         }
 
-        const assignmentElement = currentEditItem.querySelector('.assignment');
-        const quizElement = currentEditItem.querySelector('.quiz');
+        const assignmentSubtopic = currentEditItem.querySelector('.subtopic[id^="assignment-"]');
+        let assignmentContentHTML = newAssignmentContent ? (newAssignmentContent.includes('http') ? `<a href="${newAssignmentContent}" target="_blank">${newAssignmentContent}</a>` : newAssignmentContent) : 'Chưa có nội dung';
+        let assignmentFilesHTML = '';
+        if (newAssignmentFiles.length > 0) {
+          assignmentFilesHTML = '<p>Tệp đính kèm:</p><ul>';
+          Array.from(newAssignmentFiles).forEach(file => {
+            const fileURL = URL.createObjectURL(file);
+            assignmentFilesHTML += `<li><a href="${fileURL}" download="${file.name}">${file.name}</a></li>`;
+          });
+          assignmentFilesHTML += '</ul>';
+        } else {
+          // Check if there were previous files; if not, show default message
+          const existingFilesList = assignmentSubtopic.querySelector('.subtopic-content ul');
+          assignmentFilesHTML = existingFilesList ? `<p>Tệp đính kèm:</p>${existingFilesList.outerHTML}` : '<p>Không có tệp đính kèm</p>';
+        }
+        assignmentSubtopic.querySelector('.subtopic-content').innerHTML = `
+          <p class="assignment">${assignmentContentHTML}</p>
+          ${assignmentFilesHTML}
+        `;
 
-        assignmentElement.innerHTML = `Bài tập: ${newAssignment ? (newAssignment.includes('http') ? `<a href="${newAssignment}" target="_blank">${newAssignment}</a>` : newAssignment) : 'Chưa có'}`;
-        quizElement.innerHTML = `Bài kiểm tra: ${newQuiz ? `<a href="${newQuiz}" target="_blank">${newQuiz}</a>` : 'Chưa có'}`;
+        const quizSubtopic = currentEditItem.querySelector('.subtopic[id^="quiz-"]');
+        quizSubtopic.querySelector('.subtopic-content').innerHTML = `
+          <p class="quiz">${newQuiz ? `<a href="${newQuiz}" target="_blank">${newQuiz}</a>` : 'Chưa có'}</p>
+        `;
 
         closeEditModal();
       }
     }
 
-    function deleteSyllabusItem(item) {
-      if (confirm('Bạn có chắc chắn muốn xóa học phần này?')) {
-        item.remove();
-      }
-    }
-
-    function clearAllSyllabusItems() {
-      if (confirm('Bạn có chắc chắn muốn xóa tất cả học phần?')) {
-        const syllabusList = document.getElementById('syllabusList');
-        while (syllabusList.firstChild) {
-          syllabusList.removeChild(syllabusList.firstChild);
-        }
-        // Giữ lại nút "Xóa tất cả học phần"
-        const clearBtn = document.createElement('button');
-        clearBtn.className = 'clear-all-btn';
-        clearBtn.textContent = 'Xóa tất cả học phần';
-        clearBtn.onclick = clearAllSyllabusItems;
-        syllabusList.appendChild(clearBtn);
+    function clearSyllabusItemContent(item) {
+      if (confirm('Bạn có chắc chắn muốn xóa toàn bộ nội dung của học phần này?')) {
+        const uniqueId = item.querySelector('.subtopic[id^="video-"]').id.split('-')[1];
+        const materials = item.querySelector('.materials');
+        materials.innerHTML = `
+          <div class="subtopic" id="video-${uniqueId}">
+            <div class="subtopic-header" onclick="toggleSubtopic(this)">
+              <i class="fas fa-chevron-down"></i> Video bài giảng
+            </div>
+            <div class="subtopic-content">
+              <p>Chưa có video</p>
+            </div>
+            <div class="subtopic-links">
+              <a href="#assignment-${uniqueId}" onclick="scrollToSubtopic('assignment-${uniqueId}')">Bài tập</a>
+              <a href="#quiz-${uniqueId}" onclick="scrollToSubtopic('quiz-${uniqueId}')">Bài kiểm tra</a>
+            </div>
+          </div>
+          <div class="subtopic" id="assignment-${uniqueId}">
+            <div class="subtopic-header" onclick="toggleSubtopic(this)">
+              <i class="fas fa-chevron-down"></i> Bài tập
+            </div>
+            <div class="subtopic-content">
+              <p class="assignment">Chưa có nội dung</p>
+              <p>Không có tệp đính kèm</p>
+            </div>
+            <div class="subtopic-links">
+              <a href="#video-${uniqueId}" onclick="scrollToSubtopic('video-${uniqueId}')">Video bài giảng</a>
+              <a href="#quiz-${uniqueId}" onclick="scrollToSubtopic('quiz-${uniqueId}')">Bài kiểm tra</a>
+            </div>
+          </div>
+          <div class="subtopic" id="quiz-${uniqueId}">
+            <div class="subtopic-header" onclick="toggleSubtopic(this)">
+              <i class="fas fa-chevron-down"></i> Bài kiểm tra
+            </div>
+            <div class="subtopic-content">
+              <p class="quiz">Chưa có</p>
+            </div>
+            <div class="subtopic-links">
+              <a href="#video-${uniqueId}" onclick="scrollToSubtopic('video-${uniqueId}')">Video bài giảng</a>
+              <a href="#assignment-${uniqueId}" onclick="scrollToSubtopic('assignment-${uniqueId}')">Bài tập</a>
+            </div>
+          </div>
+          <div class="actions">
+            <div class="edit-btn" onclick="openEditModal(this.closest('.syllabus-item'))">
+              <i class="fas fa-edit"></i>
+            </div>
+            <div class="delete-btn" onclick="clearSyllabusItemContent(this.closest('.syllabus-item'))">
+              <i class="fas fa-trash"></i>
+            </div>
+          </div>
+        `;
       }
     }
 
