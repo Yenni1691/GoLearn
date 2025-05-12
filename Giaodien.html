@@ -1,0 +1,1733 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GoLearn</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background-color: #f0f4f8;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    .menu {
+      background-color: #004466;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      height: 80px;
+    }
+
+    .logo img {
+      height: 60px;
+      vertical-align: middle;
+    }
+
+    .main-menu {
+      list-style: none;
+      display: flex;
+      align-items: center;
+    }
+
+    .main-menu li {
+      position: relative;
+      margin-left: 30px;
+    }
+
+    .main-menu li a {
+      color: white;
+      text-decoration: none;
+      padding: 10px;
+      display: block;
+    }
+
+    .main-menu li a:hover {
+      background-color: #f0f0f0;
+      color: #ffcc00;
+      border-radius: 5px;
+    }
+
+    .sub-menu {
+      display: none;
+      padding: 0;
+      margin: 0;
+      position: absolute;
+      background-color: #004466;
+      list-style: none;
+      top: 100%;
+      left: 0;
+      min-width: 150px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      font-weight: normal;
+    }
+
+    .sub-menu li a {
+      padding: 10px;
+      font-weight: normal;
+      color: white;
+    }
+
+    .sub-menu li a:hover {
+      color: #ffcc00;
+      background-color: #f0f0f0;
+      border-radius: 0;
+    }
+
+    .main-menu li:hover > .sub-menu {
+      display: block;
+    }
+
+    .sub-menu .sub-menu {
+      top: 0;
+      left: 100%;
+    }
+
+    .main-menu li .icon {
+      color: white;
+      font-size: 20px;
+      padding: 10px;
+      position: relative;
+    }
+
+    .main-menu li .icon:hover {
+      background-color: #004466;
+      border-radius: 5px;
+    }
+
+    .content-wrapper {
+      display: flex;
+      margin-top: 80px;
+      min-height: calc(100vh - 80px - 150px); /* Adjusted for header and footer height */
+      flex: 1;
+    }
+
+    .sidebar {
+      width: 250px;
+      background-color: #ffffff;
+      padding-top: 20px;
+      color: #333;
+      overflow-y: auto;
+      margin: 0;
+      box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+      flex-shrink: 0;
+    }
+
+    .sidebar ul {
+      list-style: none;
+    }
+
+    .sidebar ul li {
+      padding: 15px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+    }
+
+    .sidebar ul li i {
+      margin-right: 10px;
+      font-size: 18px;
+      color: #666;
+    }
+
+    .sidebar ul li:hover {
+      background-color: #f0f0f0;
+      color: #004466;
+    }
+
+    .sidebar ul li.active {
+      background-color: #e6f0ff;
+      border-left: 4px solid #ffcc00;
+      color: #004466;
+    }
+
+    .main-content {
+      padding: 20px;
+      flex: 1;
+    }
+
+    .main-content .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .main-content h1 {
+      color: #2a6ebb;
+    }
+
+    .card {
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    .card.highlight {
+      border-left: 4px solid #ffcc00;
+    }
+
+    .start-course-btn {
+      background-color: #2a6ebb;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .start-course-btn:hover {
+      background-color: #004466;
+      color: #d9ff00;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 90px;
+      left: 260px;
+      width: 400px;
+      z-index: 2000;
+      background-color: rgba(245, 245, 245, 0.5);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background-color: white;
+      padding: 20px;
+      border-radius: 5px;
+      width: 400px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      position: relative;
+      border: 1px solid #ddd;
+    }
+
+    .modal-content h3 {
+      margin-bottom: 15px;
+      font-size: 18px;
+      display: inline-block;
+    }
+
+    .modal-content label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    .modal-content input {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+
+    .modal-content .buttons {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    .modal-content button {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .modal-content .cancel-btn {
+      background-color: hsl(0, 0%, 94%);
+      color: #333;
+    }
+
+    .modal-content .create-btn {
+      background-color: #004466;
+      color: white;
+    }
+
+    .modal-content .cancel-btn:hover {
+      background-color: #e0e0e0;
+    }
+
+    .modal-content .create-btn:hover {
+      background-color: #004466;
+    }
+
+    .modal-content .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: none;
+      border: none;
+      font-size: 18px;
+      cursor: pointer;
+      color: #0d6efd;
+    }
+
+    .course-details {
+      display: none;
+      padding: 20px;
+      flex: 1;
+    }
+
+    .left, .right {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .left {
+      flex: 2;
+      height: calc(100vh - 120px);
+      overflow-y: auto;
+    }
+
+    .right {
+      flex: 1;
+      height: calc(100vh - 120px);
+      overflow-y: auto;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: #333;
+    }
+
+    .form-group input, .form-group select {
+      width: 100%;
+      padding: 8px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
+
+    .btn-group button {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border: none;
+      background-color: #f1f1f1;
+      text-align: left;
+      font-size: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      color: #333;
+      border-radius: 5px;
+    }
+
+    .btn-group button i {
+      margin-right: 10px;
+      color: #666;
+    }
+
+    .btn-group button:hover {
+      background-color: #e0e0e0;
+    }
+
+    .status {
+      font-weight: bold;
+      margin-bottom: 20px;
+      color: #333;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .status-buttons {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .status-buttons button {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .status-buttons .publish-btn {
+      background-color: #0d6efd;
+      color: white;
+    }
+
+    .status-buttons .unpublish-btn {
+      background-color: #dc3545;
+      color: white;
+    }
+
+    .status-buttons .publish-btn:hover {
+      background-color: #004466;
+    }
+
+    .status-buttons .unpublish-btn:hover {
+      background-color: #c82333;
+    }
+
+    h2 {
+      font-size: 24px;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    .left h2 {
+      font-size: 24px;
+      color: #333;
+      margin-bottom: 20px;
+      display: inline-block;
+    }
+
+    .left .buttons {
+      float: right;
+      display: flex;
+      gap: 10px;
+    }
+
+    .left .buttons button {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .left .buttons .publish-btn {
+      background-color: #0d6efd;
+      color: white;
+    }
+
+    .left .buttons .module-btn {
+      background-color: #f1f1f1;
+      color: #333;
+    }
+
+    .left .buttons button:hover {
+      opacity: 0.9;
+    }
+
+    .right h3 {
+      font-size: 18px;
+      color: #333;
+      margin-bottom: 15px;
+    }
+
+    .right ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .right ul li {
+      padding: 10px 0;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      align-items: center;
+    }
+
+    .right ul li i {
+      margin-right: 10px;
+      color: #666;
+    }
+
+    .right ul li a {
+      color: #0d6efd;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .right ul li a:hover {
+      text-decoration: underline;
+    }
+
+    .item-list {
+      margin-top: 20px;
+    }
+
+    .item-card {
+      background-color: #f9f9f9;
+      padding: 15px;
+      border-radius: 5px;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border: 1px solid #ddd;
+    }
+
+    .item-card .item-info {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .item-card .item-info i {
+      color: #0d6efd;
+    }
+
+    .item-card .item-info span {
+      font-size: 16px;
+      color: #333;
+    }
+
+    .item-card .item-content {
+      margin-top: 10px;
+      font-size: 14px;
+      color: #555;
+    }
+
+    .item-card .item-content a {
+      color: #004466;
+      text-decoration: none;
+    }
+
+    .item-card .item-content a:hover {
+      text-decoration: underline;
+    }
+
+    .left::-webkit-scrollbar,
+    .right::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .left::-webkit-scrollbar-track,
+    .right::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 4px;
+    }
+
+    .left::-webkit-scrollbar-thumb,
+    .right::-webkit-scrollbar-thumb {
+      background: #888;
+      border-radius: 4px;
+    }
+
+    .left::-webkit-scrollbar-thumb:hover,
+    .right::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
+
+    .modal-content {
+      background-color: white;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      position: relative;
+      border: 1px solid #ddd;
+    }
+
+    .modal-content h3 {
+      margin-bottom: 15px;
+      font-size: 18px;
+      display: inline-block;
+    }
+
+    .modal-content .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: none;
+      border: none;
+      font-size: 18px;
+      cursor: pointer;
+      color: #0d6efd;
+    }
+
+    .modal-content label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    .modal-content input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      border-color: #ff0000;
+    }
+
+    .modal-content .required {
+      color: #ff0000;
+      display: inline;
+    }
+
+    .modal-content .checkbox {
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .modal-content .checkbox input {
+      margin: 0;
+    }
+
+    .modal-content .prerequisite {
+      color: #0d6efd;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      margin-bottom: 15px;
+    }
+
+    .modal-content .prerequisite:hover {
+      text-decoration: underline;
+    }
+
+    .modal-content .buttons {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      border-top: 1px solid #ddd;
+      padding-top: 15px;
+    }
+
+    .modal-content button {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .modal-content .cancel-btn {
+      background-color: #f0f0f0;
+      color: #333;
+      border: 1px solid #ddd;
+    }
+
+    .modal-content .add-btn {
+      background-color: #0d6efd;
+      color: white;
+    }
+
+    .modal-content .cancel-btn:hover {
+      background-color: #e0e0e0;
+    }
+
+    .modal-content .add-btn:hover {
+      background-color: #0056b3;
+    }
+
+    .modal-content select {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+
+    .modal-content textarea {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      resize: vertical;
+      height: 100px;
+      position: relative;
+    }
+
+    .modal-content .input-container {
+      position: relative;
+    }
+
+    .modal-content .add-icon {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      background-color: #0d6efd;
+      color: white;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .modal-content .add-icon:hover {
+      background-color: #0056b3;
+    }
+
+    .modal-content input[type="text"].item-name {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+
+    .course-overview {
+      display: none;
+      padding: 20px;
+      flex: 1;
+    }
+
+    .course-overview h1 {
+      font-size: 36px;
+      color: #2a6ebb;
+      margin-bottom: 20px;
+    }
+
+    .course-overview .section {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+    }
+
+    .course-overview .section h2 {
+      font-size: 24px;
+      color: #333;
+      margin-bottom: 15px;
+    }
+
+    .course-overview .section textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      resize: vertical;
+      min-height: 150px;
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    .course-overview .section .update-btn {
+      margin-top: 10px;
+      padding: 8px 16px;
+      background-color: #0d6efd;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .course-overview .section .update-btn:hover {
+      background-color: #0056b3;
+    }
+
+    .course-overview .syllabus-form {
+      margin-top: 20px;
+    }
+
+    .course-overview .syllabus-form input,
+    .course-overview .syllabus-form textarea {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+
+    .course-overview .syllabus-form textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    .course-overview .syllabus-form input[type="file"] {
+      padding: 5px 0;
+    }
+
+    .course-overview .syllabus-list {
+      margin-top: 20px;
+    }
+
+    .course-overview .syllabus-item {
+      background-color: #f9f9f9;
+      padding: 15px;
+      border-radius: 5px;
+      margin-bottom: 10px;
+      border: 1px solid #ddd;
+    }
+
+    .course-overview .syllabus-item .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .course-overview .syllabus-item h3 {
+      font-size: 18px;
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    .course-overview .syllabus-item .toggle-btn {
+      cursor: pointer;
+      color: #0d6efd;
+      font-size: 14px;
+    }
+
+    .course-overview .syllabus-item .toggle-btn:hover {
+      color: #0056b3;
+    }
+
+    .course-overview .syllabus-item .materials {
+      margin-top: 10px;
+    }
+
+    .course-overview .syllabus-item .materials .subtopic {
+      margin-bottom: 10px;
+    }
+
+    .course-overview .syllabus-item .materials .subtopic-header {
+      cursor: pointer;
+      font-weight: bold;
+      color: #0d6efd;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 0;
+    }
+
+    .course-overview .syllabus-item .materials .subtopic-header:hover {
+      color: #0056b3;
+    }
+
+    .course-overview .syllabus-item .materials .subtopic-content {
+      display: none;
+      padding-left: 20px;
+      padding-top: 5px;
+    }
+
+    .course-overview .syllabus-item .materials .subtopic-content p {
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 5px;
+    }
+
+    .course-overview .syllabus-item .materials .subtopic-content a {
+      color: #0d6efd;
+      text-decoration: none;
+    }
+
+    .course-overview .syllabus-item .materials .subtopic-content a:hover {
+      text-decoration: underline;
+    }
+
+    .course-overview .syllabus-item .materials .subtopic-content ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .course-overview .syllabus-item .materials .subtopic-content ul li {
+      margin-bottom: 5px;
+    }
+
+    .course-overview .syllabus-item .materials video {
+      width: 100%;
+      max-width: 400px;
+      height: auto;
+      margin-top: 10px;
+      border-radius: 5px;
+    }
+
+    .course-overview .syllabus-item .materials .actions {
+      display: flex;
+      gap: 5px;
+    }
+
+    .course-overview .syllabus-item .materials .edit-btn,
+    .course-overview .syllabus-item .materials .delete-btn {
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .course-overview .syllabus-item .materials .edit-btn {
+      background-color: #0d6efd;
+      color: white;
+    }
+
+    .course-overview .syllabus-item .materials .edit-btn:hover {
+      background-color: #0056b3;
+    }
+
+    .course-overview .syllabus-item .materials .delete-btn {
+      background-color: #dc3545;
+      color: white;
+    }
+
+    .course-overview .syllabus-item .materials .delete-btn:hover {
+      background-color: #c82333;
+    }
+
+    .course-overview .syllabus-item .materials .subtopic-links {
+      display: flex;
+      gap: 10px;
+      margin-top: 5px;
+    }
+
+    .course-overview .syllabus-item .materials .subtopic-links a {
+      font-size: 12px;
+      color: #666;
+      text-decoration: none;
+      padding: 2px 5px;
+      border-radius: 3px;
+      background-color: #f0f0f0;
+    }
+
+    .course-overview .syllabus-item .materials .subtopic-links a:hover {
+      background-color: #e0e0e0;
+      color: #333;
+    }
+
+    /* New Footer Styles */
+    .footer {
+      background-color: #004466;
+      color: white;
+      padding: 20px;
+      margin-top: auto;
+      margin: 0;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .footer-container {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      max-width: 1200px;
+      gap: 50px;
+      padding: 20px 20px 0 20px;
+      margin-bottom: 0;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .footer-col {
+      flex: 1;
+      min-width: 200px;
+      max-width: 33.33%;
+      word-wrap: break-word;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .footer-col h2,
+    .footer-col h3 {
+      color: #ffcc00;
+      margin-bottom: 15px;
+    }
+
+    .footer-col .slogan,
+    .footer-col p,
+    .footer-col a,
+    .footer-col ul {
+      font-size: 14px;
+      color: #eee;
+      text-decoration: none;
+      line-height: 1.8;
+    }
+
+    .footer-col ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer-col ul li {
+      margin-bottom: 8px;
+    }
+
+    .footer-col a:hover {
+      text-decoration: underline;
+      color: #ffcc00;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      border-top: 1px solid #555;
+      font-size: 13px;
+      margin-top: 5px;
+      padding-top: 20px;
+      margin-left: auto;
+      margin-right: auto;
+      max-width: 1200px;
+    }
+
+    .contact-icon {
+      margin-right: 8px;
+    }
+  </style>
+</head>
+<body>
+  <nav class="menu">
+    <div class="logo">
+      <img src="Logo.png" alt="GoLearn Logo" style="height: 60px;" />
+    </div>
+    <ul class="main-menu">
+      <li><a href="#">HOME</a></li>
+      <li><a href="#">BLOG</a></li>
+      <li><a href="#">COURSE</a>
+        <ul class="sub-menu">
+          <li><a href="#">TOÁN</a></li>
+          <li><a href="#">NGỮ VĂN</a></li>
+          <li><a href="#">TIẾNG ANH</a>
+            <ul class="sub-menu">
+              <li><a href="#">LỚP 6</a></li>
+              <li><a href="#">LỚP 7</a></li>
+              <li><a href="#">LỚP 8</a></li>
+              <li><a href="#">LỚP 9</a></li>
+            </ul>
+          </li>
+          <li><a href="#">VẬT LÝ</a></li>
+          <li><a href="#">HÓA HỌC</a></li>
+          <li><a href="#">SINH HỌC</a></li>
+          <li><a href="#">LỊCH SỬ</a></li>
+          <li><a href="#">ĐỊA LÝ</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#" class="icon"><i class="fas fa-bell"></i></a>
+      </li>
+      <li>
+        <a href="login_with.html" class="icon"><i class="fas fa-user"></i></a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="content-wrapper">
+    <div class="sidebar">
+      <ul>
+        <li class="active"><i class="fas fa-book"></i> Khóa học</li>
+        <li><i class="fas fa-users"></i> Danh sách học sinh</li>
+        <li><i class="fas fa-file-alt"></i> Bài tập</li>
+      </ul>
+    </div>
+
+    <!-- Giao diện chính ban đầu -->
+    <div class="main-content" id="mainContent">
+      <div class="header">
+        <h1>GoLearn.com</h1>
+        <button class="start-course-btn" onclick="openModal()">Bắt đầu một khóa học mới</button>
+      </div>
+      <div class="card">
+        <p>Thông báo: Hãy cho chúng tôi biết cách thức và thời điểm bạn muốn nhận thông báo về các sự kiện trong Golearn.</p>
+      </div>
+      <div class="card highlight">
+        <p>Chào mừng bạn đến với Golearn! Bạn không có bất kỳ khóa học nào, vì vậy trang này sẽ không thể hiển thị thêm thông tin vào lúc này. Khi bạn đăng ký học, bạn sẽ biết được các thông tin cụ thể, truy cập trực tiếp các thông tin cần.</p>
+      </div>
+    </div>
+
+    <!-- Giao diện Chi tiết khóa học (ẩn ban đầu) -->
+    <div class="course-details" id="courseDetails">
+      <div class="left">
+        <h2>Chi tiết khóa học</h2>
+        <div class="form-group">
+          <label>Tên</label>
+          <input type="text" id="courseNameInput" placeholder="VD: Toán lớp 6">
+        </div>
+        <div class="form-group">
+          <label>Mã khóa học</label>
+          <input type="text" value="DKA-6">
+        </div>
+        <div class="form-group">
+          <label>Miền khóa học</label>
+          <input type="text" placeholder="Ví dụ: giaovien.toanlop6.edu.vn">
+        </div>
+        <div class="form-group">
+          <label>Mẫu giao diện</label>
+          <select>
+            <option>Gói mẫu mặc định</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Tham gia</label>
+          <select>
+            <option>Giáo viên, học sinh</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Bắt đầu</label>
+          <input type="date">
+        </div>
+        <div class="form-group">
+          <label>Kết thúc</label>
+          <input type="date">
+        </div>
+        <div class="status-buttons">
+          <button class="publish-btn" onclick="publishCourse()">Xuất bản</button>
+          <button class="unpublish-btn" onclick="unpublishCourse()">Hủy xuất bản</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Giao diện Tổng quan khóa học (ẩn ban đầu) -->
+    <div class="course-overview" id="courseOverview">
+      <h1 id="courseTitle"></h1>
+      <div class="section">
+        <h2>Mô tả khóa học</h2>
+        <textarea id="courseDescription" placeholder="Nhập mô tả khóa học..."></textarea>
+        <button class="update-btn" onclick="updateDescription()">Cập nhật mô tả</button>
+      </div>
+      <div class="section">
+        <h2>Đề cương khóa học</h2>
+        <div class="syllabus-form">
+          <div class="form-group">
+            <label>Tiêu đề bài học</label>
+            <input type="text" id="lessonTitle" placeholder="Nhập tiêu đề bài học">
+          </div>
+          <div class="form-group">
+            <label>Video bài giảng</label>
+            <input type="file" id="lessonVideo" accept="video/*">
+          </div>
+          <div class="form-group">
+            <label>Bài tập (Nội dung hoặc Link)</label>
+            <textarea id="assignmentContent" placeholder="Nhập nội dung bài tập hoặc đường link"></textarea>
+          </div>
+          <div class="form-group">
+            <label>Bài tập (Tệp đính kèm - Chọn nhiều file nếu cần)</label>
+            <input type="file" id="assignmentFile" multiple>
+          </div>
+          <div class="form-group">
+            <label>Bài kiểm tra (Link)</label>
+            <input type="text" id="quizLink" placeholder="Nhập link bài kiểm tra">
+          </div>
+          <button class="update-btn" onclick="addSyllabusItem()">Thêm vào đề cương</button>
+        </div>
+        <div class="syllabus-list" id="syllabusList">
+          <!-- Các mục đề cương sẽ được thêm động -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- New Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+      <!-- CỘT 1 -->
+      <div class="footer-col">
+        <h2><span class="highlight">GoLearn.com</span></h2>
+        <p class="slogan">Trang web chia sẻ nội dung kiến thức miễn phí <br> dành cho học sinh THCS.</p>
+      </div>
+
+      <!-- CỘT 2 -->
+      <div class="footer-col">
+        <h3>CHÍNH SÁCH</h3>
+        <ul>
+          <li><a href="#">Chính sách bảo mật</a></li>
+          <li><a href="#">Thanh toán</a></li>
+          <li><a href="#">Đổi trả khóa học</a></li>
+          <li><a href="#">Tuyển dụng</a></li>
+        </ul>
+      </div>
+
+      <!-- CỘT 3 -->
+      <div class="footer-col">
+        <h3>LIÊN HỆ</h3>
+        <p><i class="fas fa-map-marker-alt contact-icon"></i> Tòa C0, số 182 Lương Thế Vinh, Thanh Xuân, Hà Nội</p>
+        <p><i class="fas fa-phone contact-icon"></i> 084 283 45 85</p>
+        <p><i class="fas fa-envelope contact-icon"></i> <a href="mailto:golearnteam@gmail.com">golearnteam@gmail.com</a></p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2025 Copyright belongs to GoLearn website. Copying in any form is prohibited without written consent.</p>
+    </div>
+  </footer>
+
+  <!-- Modal tạo khóa học -->
+  <div class="modal" id="courseModal">
+    <div class="modal-content">
+      <button class="close-btn" onclick="closeModal()">×</button>
+      <h3>Tạo khóa học</h3>
+      <label for="courseName">Tên khóa học</label>
+      <input type="text" id="courseName" placeholder="Tên...">
+      <div class="buttons">
+        <button class="cancel-btn" onclick="closeModal()">Hủy</button>
+        <button class="create-btn" onclick="createCourse()">Tạo</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Thêm Học Phần -->
+  <div class="modal" id="addModuleModal">
+    <div class="modal-content">
+      <h3>Thêm Học Phần</h3>
+      <button class="close-btn" onclick="closeModuleModal()">×</button>
+      <label for="moduleName">Tên Học Phần <span class="required">*</span></label>
+      <input type="text" id="moduleName" placeholder="">
+      <div class="checkbox">
+        <input type="checkbox" id="lockUntil" style="width: 100px;">
+        <label for="lockUntil">Khóa Đến Khi</label>
+      </div>
+      <a href="#" class="prerequisite"><i class="fas fa-plus"></i> Điều kiện tiên quyết</a>
+      <div class="buttons">
+        <button class="cancel-btn" onclick="closeModuleModal()">Hủy</button>
+        <button class="add-btn" onclick="addModule()">Thêm Học Phần</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Thêm Mục -->
+  <div class="modal" id="addItemModal">
+    <div class="modal-content">
+      <button class="close-btn" onclick="closeItemModal()">×</button>
+      <label for="itemType">Thêm</label>
+      <select id="itemType" onchange="updateItemForm()">
+        <option value="Bài Tập">Bài Tập</option>
+        <option value="Kiểm Tra">Kiểm Tra</option>
+        <option value="Tập Tin">Tập Tin</option>
+        <option value="Thảo Luận">Thảo Luận</option>
+      </select>
+      <div id="itemForm">
+        <!-- Nội dung động sẽ được cập nhật bởi JavaScript -->
+      </div>
+      <div class="buttons">
+        <button class="cancel-btn" onclick="closeItemModal()">Hủy</button>
+        <button class="add-btn" onclick="addItem()">Thêm Mục</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Chỉnh sửa Bài tập, Bài kiểm tra và Video -->
+  <div class="modal" id="editItemModal">
+    <div class="modal-content">
+      <button class="close-btn" onclick="closeEditModal()">×</button>
+      <h3>Chỉnh sửa Học Phần</h3>
+      <div class="form-group">
+        <label>Video bài giảng</label>
+        <input type="file" id="editLessonVideo" accept="video/*">
+      </div>
+      <div class="form-group">
+        <label>Bài tập (Nội dung hoặc Link)</label>
+        <textarea id="editAssignmentContent" placeholder="Nhập nội dung bài tập hoặc đường link"></textarea>
+      </div>
+      <div class="form-group">
+        <label>Bài tập (Tệp đính kèm - Chọn nhiều file nếu cần)</label>
+        <input type="file" id="editAssignmentFile" multiple>
+      </div>
+      <div class="form-group">
+        <label>Bài kiểm tra (Link)</label>
+        <input type="text" id="editQuizLink" placeholder="Nhập link bài kiểm tra">
+      </div>
+      <div class="buttons">
+        <button class="cancel-btn" onclick="closeEditModal()">Hủy</button>
+        <button class="add-btn" onclick="updateSyllabusItem()">Cập nhật</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentEditItem = null;
+
+    function openModal() {
+      document.getElementById('courseModal').style.display = 'flex';
+    }
+
+    function closeModal() {
+      document.getElementById('courseModal').style.display = 'none';
+    }
+
+    function createCourse() {
+      const courseName = document.getElementById('courseName').value;
+      if (courseName) {
+        document.getElementById('mainContent').style.display = 'none';
+        document.getElementById('courseDetails').style.display = 'flex';
+        document.getElementById('courseNameInput').value = courseName;
+        closeModal();
+      } else {
+        alert('Vui lòng nhập tên khóa học!');
+      }
+    }
+
+    function publishCourse() {
+      const courseName = document.getElementById('courseNameInput').value;
+      if (courseName) {
+        document.getElementById('courseDetails').style.display = 'none';
+        document.getElementById('courseOverview').style.display = 'block';
+        document.getElementById('courseTitle').textContent = courseName;
+      } else {
+        alert('Vui lòng nhập tên khóa học trước khi xuất bản!');
+      }
+    }
+
+    function unpublishCourse() {
+      document.getElementById('courseOverview').style.display = 'none';
+      document.getElementById('courseDetails').style.display = 'flex';
+    }
+
+    function updateDescription() {
+      const description = document.getElementById('courseDescription').value;
+      if (description) {
+        alert('Mô tả khóa học đã được cập nhật!');
+      } else {
+        alert('Vui lòng nhập mô tả trước khi cập nhật!');
+      }
+    }
+
+    function addSyllabusItem() {
+      const lessonTitle = document.getElementById('lessonTitle').value;
+      const lessonVideo = document.getElementById('lessonVideo').files[0];
+      const assignmentContent = document.getElementById('assignmentContent').value;
+      const assignmentFiles = document.getElementById('assignmentFile').files;
+      const quizLink = document.getElementById('quizLink').value;
+
+      if (lessonTitle) {
+        const syllabusList = document.getElementById('syllabusList');
+        const syllabusItem = document.createElement('div');
+        syllabusItem.className = 'syllabus-item';
+
+        const uniqueId = Date.now(); // Unique identifier for this syllabus item
+
+        let videoHTML = '';
+        if (lessonVideo) {
+          const videoURL = URL.createObjectURL(lessonVideo);
+          videoHTML = `
+            <div class="subtopic" id="video-${uniqueId}">
+              <div class="subtopic-header" onclick="toggleSubtopic(this)">
+                <i class="fas fa-chevron-down"></i> Video bài giảng
+              </div>
+              <div class="subtopic-content">
+                <video controls>
+                  <source src="${videoURL}" type="${lessonVideo.type}">
+                  Trình duyệt của bạn không hỗ trợ phát video.
+                </video>
+              </div>
+              <div class="subtopic-links">
+                <a href="#assignment-${uniqueId}" onclick="scrollToSubtopic('assignment-${uniqueId}')">Bài tập</a>
+                <a href="#quiz-${uniqueId}" onclick="scrollToSubtopic('quiz-${uniqueId}')">Bài kiểm tra</a>
+              </div>
+            </div>
+          `;
+        } else {
+          videoHTML = `
+            <div class="subtopic" id="video-${uniqueId}">
+              <div class="subtopic-header" onclick="toggleSubtopic(this)">
+                <i class="fas fa-chevron-down"></i> Video bài giảng
+              </div>
+              <div class="subtopic-content">
+                <p>Chưa có video</p>
+              </div>
+              <div class="subtopic-links">
+                <a href="#assignment-${uniqueId}" onclick="scrollToSubtopic('assignment-${uniqueId}')">Bài tập</a>
+                <a href="#quiz-${uniqueId}" onclick="scrollToSubtopic('quiz-${uniqueId}')">Bài kiểm tra</a>
+              </div>
+            </div>
+          `;
+        }
+
+        let assignmentHTML = '';
+        let assignmentContentHTML = assignmentContent ? (assignmentContent.includes('http') ? `<a href="${assignmentContent}" target="_blank">${assignmentContent}</a>` : assignmentContent) : 'Chưa có nội dung';
+        let assignmentFilesHTML = '';
+        if (assignmentFiles.length > 0) {
+          assignmentFilesHTML = '<p>Tệp đính kèm:</p><ul>';
+          Array.from(assignmentFiles).forEach(file => {
+            const fileURL = URL.createObjectURL(file);
+            assignmentFilesHTML += `<li><a href="${fileURL}" download="${file.name}">${file.name}</a></li>`;
+          });
+          assignmentFilesHTML += '</ul>';
+        } else {
+          assignmentFilesHTML = '<p>Không có tệp đính kèm</p>';
+        }
+        assignmentHTML = `
+          <div class="subtopic" id="assignment-${uniqueId}">
+            <div class="subtopic-header" onclick="toggleSubtopic(this)">
+              <i class="fas fa-chevron-down"></i> Bài tập
+            </div>
+            <div class="subtopic-content">
+              <p class="assignment">${assignmentContentHTML}</p>
+              ${assignmentFilesHTML}
+            </div>
+            <div class="subtopic-links">
+              <a href="#video-${uniqueId}" onclick="scrollToSubtopic('video-${uniqueId}')">Video bài giảng</a>
+              <a href="#quiz-${uniqueId}" onclick="scrollToSubtopic('quiz-${uniqueId}')">Bài kiểm tra</a>
+            </div>
+          </div>
+        `;
+
+        const quizHTML = `
+          <div class="subtopic" id="quiz-${uniqueId}">
+            <div class="subtopic-header" onclick="toggleSubtopic(this)">
+              <i class="fas fa-chevron-down"></i> Bài kiểm tra
+            </div>
+            <div class="subtopic-content">
+              <p class="quiz">${quizLink ? `<a href="${quizLink}" target="_blank">${quizLink}</a>` : 'Chưa có'}</p>
+            </div>
+            <div class="subtopic-links">
+              <a href="#video-${uniqueId}" onclick="scrollToSubtopic('video-${uniqueId}')">Video bài giảng</a>
+              <a href="#assignment-${uniqueId}" onclick="scrollToSubtopic('assignment-${uniqueId}')">Bài tập</a>
+            </div>
+          </div>
+        `;
+
+        syllabusItem.innerHTML = `
+          <div class="header">
+            <h3>${lessonTitle}</h3>
+            <i class="fas fa-chevron-down toggle-btn" onclick="toggleMaterials(this)"></i>
+          </div>
+          <div class="materials">
+            ${videoHTML}
+            ${assignmentHTML}
+            ${quizHTML}
+            <div class="actions">
+              <div class="edit-btn" onclick="openEditModal(this.closest('.syllabus-item'))">
+                <i class="fas fa-edit"></i>
+              </div>
+              <div class="delete-btn" onclick="clearSyllabusItemContent(this.closest('.syllabus-item'))">
+                <i class="fas fa-trash"></i>
+              </div>
+            </div>
+          </div>
+        `;
+
+        syllabusList.appendChild(syllabusItem);
+
+        document.getElementById('lessonTitle').value = '';
+        document.getElementById('lessonVideo').value = '';
+        document.getElementById('assignmentContent').value = '';
+        document.getElementById('assignmentFile').value = '';
+        document.getElementById('quizLink').value = '';
+      } else {
+        alert('Vui lòng nhập tiêu đề bài học!');
+      }
+    }
+
+    function toggleMaterials(btn) {
+      const materials = btn.closest('.syllabus-item').querySelector('.materials');
+      const isHidden = materials.style.display === 'none';
+      materials.style.display = isHidden ? 'block' : 'none';
+      btn.classList.toggle('fa-chevron-down', !isHidden);
+      btn.classList.toggle('fa-chevron-up', isHidden);
+    }
+
+    function toggleSubtopic(header) {
+      const content = header.nextElementSibling;
+      const isHidden = content.style.display === 'none';
+      content.style.display = isHidden ? 'block' : 'none';
+      const icon = header.querySelector('i');
+      icon.classList.toggle('fa-chevron-down', !isHidden);
+      icon.classList.toggle('fa-chevron-up', isHidden);
+    }
+
+    function scrollToSubtopic(id) {
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+        const header = element.querySelector('.subtopic-header');
+        const content = element.querySelector('.subtopic-content');
+        if (content.style.display === 'none') {
+          header.click(); // Expand if collapsed
+        }
+      }
+    }
+
+    function openEditModal(item) {
+      currentEditItem = item;
+      const assignment = item.querySelector('.assignment').innerText.replace('Chưa có nội dung', '');
+      const quiz = item.querySelector('.quiz').innerText.replace('Chưa có', '');
+
+      document.getElementById('editAssignmentContent').value = assignment;
+      document.getElementById('editAssignmentFile').value = ''; // Reset file input
+      document.getElementById('editQuizLink').value = quiz;
+      document.getElementById('editLessonVideo').value = ''; // Reset file input
+      document.getElementById('editItemModal').style.display = 'block';
+    }
+
+    function closeEditModal() {
+      document.getElementById('editItemModal').style.display = 'none';
+      currentEditItem = null;
+    }
+
+    function updateSyllabusItem() {
+      if (currentEditItem) {
+        const newVideo = document.getElementById('editLessonVideo').files[0];
+        const newAssignmentContent = document.getElementById('editAssignmentContent').value;
+        const newAssignmentFiles = document.getElementById('editAssignmentFile').files;
+        const newQuiz = document.getElementById('editQuizLink').value;
+
+        const videoSubtopic = currentEditItem.querySelector('.subtopic[id^="video-"]');
+        if (newVideo) {
+          const videoURL = URL.createObjectURL(newVideo);
+          videoSubtopic.querySelector('.subtopic-content').innerHTML = `
+            <video controls>
+              <source src="${videoURL}" type="${newVideo.type}">
+              Trình duyệt của bạn không hỗ trợ phát video.
+            </video>
+          `;
+        }
+
+        const assignmentSubtopic = currentEditItem.querySelector('.subtopic[id^="assignment-"]');
+        let assignmentContentHTML = newAssignmentContent ? (newAssignmentContent.includes('http') ? `<a href="${newAssignmentContent}" target="_blank">${newAssignmentContent}</a>` : newAssignmentContent) : 'Chưa có nội dung';
+        let assignmentFilesHTML = '';
+        if (newAssignmentFiles.length > 0) {
+          assignmentFilesHTML = '<p>Tệp đính kèm:</p><ul>';
+          Array.from(newAssignmentFiles).forEach(file => {
+            const fileURL = URL.createObjectURL(file);
+            assignmentFilesHTML += `<li><a href="${fileURL}" download="${file.name}">${file.name}</a></li>`;
+          });
+          assignmentFilesHTML += '</ul>';
+        } else {
+          const existingFilesList = assignmentSubtopic.querySelector('.subtopic-content ul');
+          assignmentFilesHTML = existingFilesList ? `<p>Tệp đính kèm:</p>${existingFilesList.outerHTML}` : '<p>Không có tệp đính kèm</p>';
+        }
+        assignmentSubtopic.querySelector('.subtopic-content').innerHTML = `
+          <p class="assignment">${assignmentContentHTML}</p>
+          ${assignmentFilesHTML}
+        `;
+
+        const quizSubtopic = currentEditItem.querySelector('.subtopic[id^="quiz-"]');
+        quizSubtopic.querySelector('.subtopic-content').innerHTML = `
+          <p class="quiz">${newQuiz ? `<a href="${newQuiz}" target="_blank">${newQuiz}</a>` : 'Chưa có'}</p>
+        `;
+
+        closeEditModal();
+      }
+    }
+
+    function clearSyllabusItemContent(item) {
+      if (confirm('Bạn có chắc chắn muốn xóa toàn bộ nội dung của học phần này?')) {
+        const uniqueId = item.querySelector('.subtopic[id^="video-"]').id.split('-')[1];
+        const materials = item.querySelector('.materials');
+        materials.innerHTML = `
+          <div class="subtopic" id="video-${uniqueId}">
+            <div class="subtopic-header" onclick="toggleSubtopic(this)">
+              <i class="fas fa-chevron-down"></i> Video bài giảng
+            </div>
+            <div class="subtopic-content">
+              <p>Chưa có video</p>
+            </div>
+            <div class="subtopic-links">
+              <a href="#assignment-${uniqueId}" onclick="scrollToSubtopic('assignment-${uniqueId}')">Bài tập</a>
+              <a href="#quiz-${uniqueId}" onclick="scrollToSubtopic('quiz-${uniqueId}')">Bài kiểm tra</a>
+            </div>
+          </div>
+          <div class="subtopic" id="assignment-${uniqueId}">
+            <div class="subtopic-header" onclick="toggleSubtopic(this)">
+              <i class="fas fa-chevron-down"></i> Bài tập
+            </div>
+            <div class="subtopic-content">
+              <p class="assignment">Chưa có nội dung</p>
+              <p>Không có tệp đính kèm</p>
+            </div>
+            <div class="subtopic-links">
+              <a href="#video-${uniqueId}" onclick="scrollToSubtopic('video-${uniqueId}')">Video bài giảng</a>
+              <a href="#quiz-${uniqueId}" onclick="scrollToSubtopic('quiz-${uniqueId}')">Bài kiểm tra</a>
+            </div>
+          </div>
+          <div class="subtopic" id="quiz-${uniqueId}">
+            <div class="subtopic-header" onclick="toggleSubtopic(this)">
+              <i class="fas fa-chevron-down"></i> Bài kiểm tra
+            </div>
+            <div class="subtopic-content">
+              <p class="quiz">Chưa có</p>
+            </div>
+            <div class="subtopic-links">
+              <a href="#video-${uniqueId}" onclick="scrollToSubtopic('video-${uniqueId}')">Video bài giảng</a>
+              <a href="#assignment-${uniqueId}" onclick="scrollToSubtopic('assignment-${uniqueId}')">Bài tập</a>
+            </div>
+          </div>
+          <div class="actions">
+            <div class="edit-btn" onclick="openEditModal(this.closest('.syllabus-item'))">
+              <i class="fas fa-edit"></i>
+            </div>
+            <div class="delete-btn" onclick="clearSyllabusItemContent(this.closest('.syllabus-item'))">
+              <i class="fas fa-trash"></i>
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    function openModuleModal() {
+      document.getElementById('addModuleModal').style.display = 'block';
+    }
+
+    function closeModuleModal() {
+      document.getElementById('addModuleModal').style.display = 'none';
+    }
+
+    function openItemModal() {
+      document.getElementById('addItemModal').style.display = 'block';
+      updateItemForm();
+    }
+
+    function closeItemModal() {
+      document.getElementById('addItemModal').style.display = 'none';
+    }
+
+    function addModule() {
+      const moduleName = document.getElementById('moduleName').value;
+      if (moduleName) {
+        closeModuleModal();
+        openItemModal();
+      } else {
+        alert('Vui lòng nhập tên học phần!');
+      }
+    }
+
+    function updateItemForm() {
+      const itemType = document.getElementById('itemType').value;
+      const itemForm = document.getElementById('itemForm');
+      let content = '';
+
+      if (itemType === 'Bài Tập') {
+        content = `
+          <div class="input-container">
+            <textarea id="itemContent" placeholder="Nhập nội dung bài tập">[ Tạo Bài Tập ]
+Bài tập</textarea>
+            <div class="add-icon" onclick="postItem('Bài Tập')"><i class="fas fa-plus"></i></div>
+          </div>
+        `;
+      } else if (itemType === 'Kiểm Tra') {
+        content = `
+          <div class="input-container">
+            <input type="text" id="itemContent" class="item-name" placeholder="Nhập liên kết kiểm tra (Ví dụ: https://example.com)">
+            <div class="add-icon" onclick="postItem('Kiểm Tra')"><i class="fas fa-plus"></i></div>
+          </div>
+        `;
+      } else {
+        content = `
+          <textarea id="itemContent" placeholder="Nhập nội dung cho ${itemType}">[ Tạo ${itemType} ]
+${itemType}</textarea>
+        `;
+      }
+
+      itemForm.innerHTML = content;
+    }
+
+    function postItem(itemType) {
+      const itemContent = document.getElementById('itemContent').value;
+      const itemList = document.getElementById('itemList');
+
+      if (itemContent) {
+        const itemCard = document.createElement('div');
+        itemCard.className = 'item-card';
+
+        const itemInfo = document.createElement('div');
+        itemInfo.className = 'item-info';
+
+        const icon = document.createElement('i');
+        if (itemType === 'Bài Tập') {
+          icon.className = 'fas fa-book';
+        } else if (itemType === 'Kiểm Tra') {
+          icon.className = 'fas fa-check-square';
+        } else if (itemType === 'Tập Tin') {
+          icon.className = 'fas fa-file-alt';
+        } else if (itemType === 'Thảo Luận') {
+          icon.className = 'fas fa-comments';
+        }
+
+        const itemNameSpan = document.createElement('span');
+        itemNameSpan.textContent = `${itemType}`;
+
+        itemInfo.appendChild(icon);
+        itemInfo.appendChild(itemNameSpan);
+        itemCard.appendChild(itemInfo);
+
+        const itemContentDiv = document.createElement('div');
+        itemContentDiv.className = 'item-content';
+        if (itemType === 'Bài Tập') {
+          itemContentDiv.textContent = itemContent;
+        } else if (itemType === 'Kiểm Tra') {
+          const link = document.createElement('a');
+          link.href = itemContent;
+          link.textContent = itemContent;
+          link.target = '_blank';
+          itemContentDiv.appendChild(link);
+        }
+        itemCard.appendChild(itemContentDiv);
+
+        itemList.appendChild(itemCard);
+
+        document.getElementById('itemContent').value = '';
+      } else {
+        alert('Vui lòng nhập nội dung cho mục!');
+      }
+    }
+
+    function addItem() {
+      const itemType = document.getElementById('itemType').value;
+      const itemContent = document.getElementById('itemContent').value;
+      const itemList = document.getElementById('itemList');
+
+      if (itemContent) {
+        const itemCard = document.createElement('div');
+        itemCard.className = 'item-card';
+
+        const itemInfo = document.createElement('div');
+        itemInfo.className = 'item-info';
+
+        const icon = document.createElement('i');
+        if (itemType === 'Bài Tập') {
+          icon.className = 'fas fa-book';
+        } else if (itemType === 'Kiểm Tra') {
+          icon.className = 'fas fa-check-square';
+        } else if (itemType === 'Tập Tin') {
+          icon.className = 'fas fa-file-alt';
+        } else if (itemType === 'Thảo Luận') {
+          icon.className = 'fas fa-comments';
+        }
+        const itemNameSpan = document.createElement('span');
+        itemNameSpan.textContent = `${itemType}`;
+
+        itemInfo.appendChild(icon);
+        itemInfo.appendChild(itemNameSpan);
+        itemCard.appendChild(itemInfo);
+
+        const itemContentDiv = document.createElement('div');
+        itemContentDiv.className = 'item-content';
+        if (itemType === 'Bài Tập') {
+          itemContentDiv.textContent = itemContent;
+        } else if (itemType === 'Kiểm Tra') {
+          const link = document.createElement('a');
+          link.href = itemContent;
+          link.textContent = itemContent;
+          link.target = '_blank';
+          itemContentDiv.appendChild(link);
+        } else {
+          itemContentDiv.textContent = itemContent;
+        }
+        itemCard.appendChild(itemContentDiv);
+
+        itemList.appendChild(itemCard);
+        closeItemModal();
+      } else {
+        alert('Vui lòng nhập nội dung cho mục!');
+      }
+    }
+  </script>
+</body>
+</html>
