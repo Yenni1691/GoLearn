@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Trang chu hoc sinh sau khi dang nhap</title>
+  <link rel="stylesheet" href="profile.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+</head>
+<body>
+<div class="page-container">
+  <!-- MENU -->
+   <nav class="menu">
+ <div class="logo">
+        <img src="Logo.png" alt="Logo" style="height: 60px;"/>
+        <span></span>
+      </div>
+      <ul class="main-menu">
+        <li><a href="#">HOME</a></li>
+        <li><a href="#">BLOG</a></li>
+        <li><a href="#">COURSE</a>
+          <ul class="sub-menu">
+            <li><a href="#">TOÁN</a></li>
+            <li><a href="#">NGỮ VĂN</a></li>
+            <li><a href="#">TIẾNG ANH</a>
+              <ul class="sub-menu">
+                <li><a href="#">LỚP 6</a></li>
+                <li><a href="#">LỚP 7</a></li>
+                <li><a href="#">LỚP 8</a></li>
+                <li><a href="#">LỚP 9</a></li>
+              </ul>
+            </li>
+            <li><a href="#">VẬT LÝ</a></li>
+            <li><a href="#">HÓA HỌC</a></li>
+            <li><a href="#">SINH HỌC</a></li>
+            <li><a href="#">LỊCH SỬ</a></li>
+            <li><a href="#">ĐỊA LÝ</a></li>
+          </ul>
+        </li>
+        <li class="notification">
+          <a href="#">
+            <div class="icon-wrapper">
+              <i class="fas fa-bell"></i>
+              <span class="badge" id="notification-count">3</span>
+            </div>
+          </a>
+        </li>    
+        <li><a href="#"><i class="fas fa-user"></i></a>
+            <ul class="sub-menu">
+                <li><div class="teacher-name" id="teacher-name">TÊN HỌC SINH</div></li>
+                <li><a href="#">PROFILE</a></li>
+                <li><a href="#">SETTING</a></li>
+                <li><a href="#">STATISTICAL</a></li>
+                <li><a href="#">SUPPORT</a></li>
+                <li><a href="#">LOG OUT</a></li>
+            </ul>
+        </li>
+      </ul>
+   </nav>
+  
+  <!-- ===== MAIN CONTENT ===== -->
+  <div class="profile-layout">
+    <aside class="sidebar">
+      <ul>
+        <li><a href="#">Notifications</a></li>
+        <li class="active"><a href="#">Profile</a></li>
+        <li><a href="#">Settings</a></li>
+        <li><a href="#">Statistics</a></li>
+        <li><a href="#">Support</a></li>
+      </ul>
+    </aside>
+    
+    <div class="golearn-profile-section">
+      <div class="golearn-profile-header">
+        <p class="golearn-profile-avatar-label"></p>
+        <img 
+      id="profileAvatar" 
+      src="default-avatar.png" 
+      alt="Avatar" 
+      class="golearn-avatar-preview" 
+    />
+        <h2 class="golearn-profile-name">TEN</h2>
+        <button class="golearn-edit-btn" onclick="toggleEditForm()">Edit Profile</button>
+      </div>
+  
+    <div class="golearn-profile-info">
+      <h3>Contact</h3>
+          <p id="displayContact">No contact info added</p>
+
+          <h3>Biography</h3>
+          <p id="displayBio">No biography has been added</p>
+
+          <h3>Links</h3>
+          <p id="displayLinks">No links have been added</p>
+        </div>
+    <!-- Form chỉnh sửa - mặc định ẩn -->
+    <div class="golearn-edit-profile-form" id="editProfileForm" style="display: none;">
+      <h2 class="golearn-form-title">Chỉnh sửa hồ sơ</h2>
+      <form>
+        <label for="avatar">Ảnh đại diện</label>
+        <input type="file" id="avatar" name="avatar" class="golearn-form-input" />
+  
+        <label for="name">Tên</label>
+        <input type="text" id="name" name="name" placeholder="Nhập tên của bạn" class="golearn-form-input" />
+  
+        <label for="bio">Tiểu sử</label>
+        <textarea id="bio" name="bio" rows="4" placeholder="Viết vài dòng giới thiệu về bạn..." class="golearn-form-textarea"></textarea>
+  
+        <label for="contact">Liên hệ</label>
+        <input type="text" id="contact" name="contact" placeholder="Email hoặc số điện thoại" class="golearn-form-input" />
+  
+        <label for="links">Liên kết</label>
+        <input type="text" id="links" name="links" placeholder="Facebook, Portfolio hoặc Website" class="golearn-form-input" />
+  
+        <div class="golearn-btn-group">
+          <button type="submit" class="golearn-btn-save">Lưu</button>
+          <button type="button" class="golearn-btn-cancel" onclick="toggleEditForm()">Hủy bỏ</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+ <!-- ===== FOOTER ===== -->
+<!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-container">
+ 
+      <!-- CỘT 1 -->
+      <div class="footer-col">
+        <h2><span class="highlight">GoLearn.com</span></h2>
+        <p class="slogan">Trang web chia sẻ nội dung kiến thức miễn phí dành cho học sinh THCS.</p>
+      </div>
+
+      <!-- CỘT 2 -->
+      <div class="footer-col">
+        <h3>CHÍNH SÁCH</h3>
+        <ul>
+          <li><a href="#">Chính sách bảo mật</a></li>
+          <li><a href="#">Thanh toán</a></li>
+          <li><a href="#">Đổi trả khóa học</a></li>
+          <li><a href="#">Tuyển dụng</a></li>
+        </ul>
+      </div>
+
+      <!-- CỘT 3 -->
+      <div class="footer-col">
+        <h3>LIÊN HỆ</h3>
+        <p><i class="fas fa-map-marker-alt contact-icon"></i> Tòa C0, số 182 Lương Thế Vinh, Thanh Xuân, Hà Nội</p>
+        <p><i class="fas fa-phone contact-icon"></i> 084 283 45 85</p>
+        <p><i class="fas fa-envelope contact-icon"></i> <a href="mailto:golearnteam@gmail.com">golearnteam@gmail.com</a></p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2025 Copyright belongs to GoLearn website. Copying in any form is prohibited without written consent.</p>
+    </div>
+  </footer>
+  <script src="profile.js"></script>
+</body>
+</html>

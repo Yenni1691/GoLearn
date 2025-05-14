@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Trang chu hoc sinh sau khi dang nhap</title>
+  <link rel="stylesheet" href="trangchuhsinh.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+</head>
+<body>
+<div class="page-container">
+  <!-- MENU -->
+   <nav class="menu">
+ <div class="logo">
+        <img src="Logo.png" alt="Logo" style="height: 60px;"/>
+        <span></span>
+      </div>
+      <ul class="main-menu">
+        <li><a href="#">HOME</a></li>
+        <li><a href="#">BLOG</a></li>
+        <li><a href="#">COURSE</a>
+          <ul class="sub-menu">
+            <li><a href="#">TOÁN</a></li>
+            <li><a href="#">NGỮ VĂN</a></li>
+            <li><a href="#">TIẾNG ANH</a>
+              <ul class="sub-menu">
+                <li><a href="#">LỚP 6</a></li>
+                <li><a href="#">LỚP 7</a></li>
+                <li><a href="#">LỚP 8</a></li>
+                <li><a href="#">LỚP 9</a></li>
+              </ul>
+            </li>
+            <li><a href="#">VẬT LÝ</a></li>
+            <li><a href="#">HÓA HỌC</a></li>
+            <li><a href="#">SINH HỌC</a></li>
+            <li><a href="#">LỊCH SỬ</a></li>
+            <li><a href="#">ĐỊA LÝ</a></li>
+          </ul>
+        </li>
+        <li class="notification">
+          <a href="#">
+            <div class="icon-wrapper">
+              <i class="fas fa-bell"></i>
+              <span class="badge" id="notification-count">3</span>
+            </div>
+          </a>
+        </li>    
+        <li><a href="#"><i class="fas fa-user"></i></a>
+            <ul class="sub-menu">
+                <li><div class="teacher-name" id="teacher-name">TÊN HỌC SINH</div></li>
+                <li><a href="#">PROFILE</a></li>
+                <li><a href="#">SETTING</a></li>
+                <li><a href="#">STATISTICAL</a></li>
+                <li><a href="#">SUPPORT</a></li>
+                <li><a href="#">LOG OUT</a></li>
+            </ul>
+        </li>
+      </ul>
+   </nav>
+     
+
+  <section class="phan-gioi-thieu">
+    <div class="container-gioi-thieu">
+      <div class="gioi-thieu-trai">
+        <h1>Học không<br>giới hạn</h1>
+        <p>
+            Khám phá hơn 10.000 khóa học chất lượng, giúp bạn nâng cao kiến thức, phát triển kỹ năng và tự tin chinh phục các kỳ thi
+        </p>
+        <div class="nut-hanh-dong">
+          <button class="nut-chinh">Khám phá khóa học</button>
+          <button class="nut-phu">Thành tích học tập</button>
+        </div>
+      </div>
+      <div class="gioi-thieu-phai">
+        <!-- Bạn đặt ảnh ở đây -->
+        <img src="GoLearn Blog.jpg" alt="Ảnh minh họa" />
+      </div>
+    </div>
+  </section>
+  
+  <!-- Khối giới thiệu lớn -->
+  <div class="intro-box">
+    <div class="intro-text">
+      <h2>Bắt đầu hành trình học tập đầy cảm hứng</h2>
+      <p>GoLearn mang đến cho bạn những khóa học từ cơ bản đến nâng cao để giúp bạn tự tin hơn mỗi ngày. Học tập là hành trình thú vị – hãy cùng khám phá nhé!</p>
+    </div>
+    <div class="intro-image">
+      <img src="hoc-tap-cung-golearn.png" alt="Học tập cùng GoLearn">
+    </div>
+  </div>
+
+  <!-- Các khóa học gợi ý -->
+  <div class="recommended-courses">
+    <h2>Khóa học gợi ý cho bạn</h2>
+    <div class="course-cards">
+     <!-- Khóa học 1 -->
+    <div class="course-card">
+      <img src="mon-ngu-van.jpg" alt="Ngữ văn 8" class="course-image">
+      <div class="course-content">
+        <h3 class="course-title">Ngữ văn 8: Viết đoạn văn hay</h3>
+        <p class="course-description">Rèn luyện kỹ năng diễn đạt, triển khai ý logic.</p>
+        <a href="course-detail.html?id=van8" class="course-button">Xem chi tiết</a>
+      </div>
+    </div>
+
+    <!-- Khóa học 2 -->
+    <div class="course-card">
+      <img src="mon-toan.png" alt="Toán 8" class="course-image">
+      <div class="course-content">
+        <h3 class="course-title">Toán 8: Hình học nâng cao</h3>
+        <p class="course-description">Ôn luyện định lý, bài tập vận dụng khó.</p>
+        <a href="course-detail.html?id=toan8" class="course-button">Xem chi tiết</a>
+      </div>
+    </div>
+
+    <!-- Khóa học 3 -->
+    <div class="course-card">
+      <img src="tieng-anh-giao-tiep.webp" alt="Tiếng Anh " class="course-image">
+      <div class="course-content">
+        <h3 class="course-title">Giao tiếp tiếp tiếng anh cơ bản</h3>
+        <p class="course-description">Rèn luyện kỹ năng nói, phản xạ trong tiếng anh</p>
+        <a href="course-detail.html?id=tienganh8" class="course-button">Xem chi tiết</a>
+      </div>
+    </div>
+    </div>
+  </div>
+</section>
+
+ <!-- ===== FOOTER ===== -->
+<!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-container">
+ 
+      <!-- CỘT 1 -->
+      <div class="footer-col">
+        <h2><span class="highlight">GoLearn.com</span></h2>
+        <p class="slogan">Trang web chia sẻ nội dung kiến thức miễn phí dành cho học sinh THCS.</p>
+      </div>
+
+      <!-- CỘT 2 -->
+      <div class="footer-col">
+        <h3>CHÍNH SÁCH</h3>
+        <ul>
+          <li><a href="#">Chính sách bảo mật</a></li>
+          <li><a href="#">Thanh toán</a></li>
+          <li><a href="#">Đổi trả khóa học</a></li>
+          <li><a href="#">Tuyển dụng</a></li>
+        </ul>
+      </div>
+
+      <!-- CỘT 3 -->
+      <div class="footer-col">
+        <h3>LIÊN HỆ</h3>
+        <p><i class="fas fa-map-marker-alt contact-icon"></i> Tòa C0, số 182 Lương Thế Vinh, Thanh Xuân, Hà Nội</p>
+        <p><i class="fas fa-phone contact-icon"></i> 084 283 45 85</p>
+        <p><i class="fas fa-envelope contact-icon"></i> <a href="mailto:golearnteam@gmail.com">golearnteam@gmail.com</a></p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2025 Copyright belongs to GoLearn website. Copying in any form is prohibited without written consent.</p>
+    </div>
+  </footer>
+  <script src="trangchuhsinh.js"></script>
+</body>
+</html>
