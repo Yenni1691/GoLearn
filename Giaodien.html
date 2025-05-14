@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GoLearn</title>
+  
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="stylesheet" href="/Giaodien.css">
+</head>
+<body>
+  <nav class="menu">
+    <div class="logo">
+      <img src="Logo.png" alt="GoLearn Logo" style="height: 60px;" />
+    </div>
+    <ul class="main-menu">
+      <li><a href="#">HOME</a></li>
+      <li><a href="#">BLOG</a></li>
+      <li><a href="#">COURSE</a>
+        <ul class="sub-menu">
+          <li><a href="#">TOÁN</a></li>
+          <li><a href="#">NGỮ VĂN</a></li>
+          <li><a href="#">TIẾNG ANH</a>
+            <ul class="sub-menu">
+              <li><a href="#">LỚP 6</a></li>
+              <li><a href="#">LỚP 7</a></li>
+              <li><a href="#">LỚP 8</a></li>
+              <li><a href="#">LỚP 9</a></li>
+            </ul>
+          </li>
+          <li><a href="#">VẬT LÝ</a></li>
+          <li><a href="#">HÓA HỌC</a></li>
+          <li><a href="#">SINH HỌC</a></li>
+          <li><a href="#">LỊCH SỬ</a></li>
+          <li><a href="#">ĐỊA LÝ</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#" class="icon"><i class="fas fa-bell"></i></a>
+      </li>
+      <li>
+        <a href="login_with.html" class="icon"><i class="fas fa-user"></i></a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="content-wrapper">
+    <div class="sidebar">
+      <ul>
+        <li class="active"><i class="fas fa-book"></i> Khóa học</li>
+        <li><i class="fas fa-users"></i> Danh sách học sinh</li>
+        <li><i class="fas fa-file-alt"></i> Bài tập</li>
+      </ul>
+    </div>
+
+    <!-- Giao diện chính ban đầu -->
+    <div class="main-content" id="mainContent">
+      <div class="header">
+        <h1>GoLearn.com</h1>
+        <button class="start-course-btn" onclick="openModal()">Bắt đầu một khóa học mới</button>
+      </div>
+      <div class="card">
+        <p>Thông báo: Hãy cho chúng tôi biết cách thức và thời điểm bạn muốn nhận thông báo về các sự kiện trong Golearn.</p>
+      </div>
+      <div class="card highlight">
+        <p>Chào mừng bạn đến với Golearn! Bạn không có bất kỳ khóa học nào, vì vậy trang này sẽ không thể hiển thị thêm thông tin vào lúc này. Khi bạn đăng ký học, bạn sẽ biết được các thông tin cụ thể, truy cập trực tiếp các thông tin cần.</p>
+      </div>
+    </div>
+
+    <!-- Giao diện Chi tiết khóa học (ẩn ban đầu) -->
+    <div class="course-details" id="courseDetails">
+      <div class="left">
+        <h2>Chi tiết khóa học</h2>
+        <div class="form-group">
+          <label>Tên</label>
+          <input type="text" id="courseNameInput" placeholder="VD: Toán lớp 6">
+        </div>
+        <div class="form-group">
+          <label>Mã khóa học</label>
+          <input type="text" value="DKA-6">
+        </div>
+        <div class="form-group">
+          <label>Miền khóa học</label>
+          <input type="text" placeholder="Ví dụ: giaovien.toanlop6.edu.vn">
+        </div>
+        <div class="form-group">
+          <label>Mẫu giao diện</label>
+          <select>
+            <option>Gói mẫu mặc định</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Tham gia</label>
+          <select>
+            <option>Giáo viên, học sinh</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Bắt đầu</label>
+          <input type="date">
+        </div>
+        <div class="form-group">
+          <label>Kết thúc</label>
+          <input type="date">
+        </div>
+        <div class="status-buttons">
+          <button class="publish-btn" onclick="publishCourse()">Xuất bản</button>
+          <button class="unpublish-btn" onclick="unpublishCourse()">Hủy xuất bản</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Giao diện Tổng quan khóa học (ẩn ban đầu) -->
+    <div class="course-overview" id="courseOverview">
+      <h1 id="courseTitle"></h1>
+      <div class="section">
+        <h2>Mô tả khóa học</h2>
+        <textarea id="courseDescription" placeholder="Nhập mô tả khóa học..."></textarea>
+        <button class="update-btn" onclick="updateDescription()">Cập nhật mô tả</button>
+      </div>
+      <div class="section">
+        <h2>Đề cương khóa học</h2>
+        <div class="syllabus-form">
+          <div class="form-group">
+            <label>Tiêu đề bài học</label>
+            <input type="text" id="lessonTitle" placeholder="Nhập tiêu đề bài học">
+          </div>
+          <div class="form-group">
+            <label>Video bài giảng</label>
+            <input type="file" id="lessonVideo" accept="video/*">
+          </div>
+          <div class="form-group">
+            <label>Bài tập (Nội dung hoặc Link)</label>
+            <textarea id="assignmentContent" placeholder="Nhập nội dung bài tập hoặc đường link"></textarea>
+          </div>
+          <div class="form-group">
+            <label>Bài tập (Tệp đính kèm - Chọn nhiều file nếu cần)</label>
+            <input type="file" id="assignmentFile" multiple>
+          </div>
+          <div class="form-group">
+            <label>Bài kiểm tra (Link)</label>
+            <input type="text" id="quizLink" placeholder="Nhập link bài kiểm tra">
+          </div>
+          <button class="update-btn" onclick="addSyllabusItem()">Thêm vào đề cương</button>
+        </div>
+        <div class="syllabus-list" id="syllabusList">
+          <!-- Các mục đề cương sẽ được thêm động -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- New Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+      <!-- CỘT 1 -->
+      <div class="footer-col">
+        <h2><span class="highlight">GoLearn.com</span></h2>
+        <p class="slogan">Trang web chia sẻ nội dung kiến thức miễn phí <br> dành cho học sinh THCS.</p>
+      </div>
+
+      <!-- CỘT 2 -->
+      <div class="footer-col">
+        <h3>CHÍNH SÁCH</h3>
+        <ul>
+          <li><a href="#">Chính sách bảo mật</a></li>
+          <li><a href="#">Thanh toán</a></li>
+          <li><a href="#">Đổi trả khóa học</a></li>
+          <li><a href="#">Tuyển dụng</a></li>
+        </ul>
+      </div>
+
+      <!-- CỘT 3 -->
+      <div class="footer-col">
+        <h3>LIÊN HỆ</h3>
+        <p><i class="fas fa-map-marker-alt contact-icon"></i> Tòa C0, số 182 Lương Thế Vinh, Thanh Xuân, Hà Nội</p>
+        <p><i class="fas fa-phone contact-icon"></i> 084 283 45 85</p>
+        <p><i class="fas fa-envelope contact-icon"></i> <a href="mailto:golearnteam@gmail.com">golearnteam@gmail.com</a></p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2025 Copyright belongs to GoLearn website. Copying in any form is prohibited without written consent.</p>
+    </div>
+  </footer>
+
+  <!-- Modal tạo khóa học -->
+  <div class="modal" id="courseModal">
+    <div class="modal-content">
+      <button class="close-btn" onclick="closeModal()">×</button>
+      <h3>Tạo khóa học</h3>
+      <label for="courseName">Tên khóa học</label>
+      <input type="text" id="courseName" placeholder="Tên...">
+      <div class="buttons">
+        <button class="cancel-btn" onclick="closeModal()">Hủy</button>
+        <button class="create-btn" onclick="createCourse()">Tạo</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Thêm Học Phần -->
+  <div class="modal" id="addModuleModal">
+    <div class="modal-content">
+      <h3>Thêm Học Phần</h3>
+      <button class="close-btn" onclick="closeModuleModal()">×</button>
+      <label for="moduleName">Tên Học Phần <span class="required">*</span></label>
+      <input type="text" id="moduleName" placeholder="">
+      <div class="checkbox">
+        <input type="checkbox" id="lockUntil" style="width: 100px;">
+        <label for="lockUntil">Khóa Đến Khi</label>
+      </div>
+      <a href="#" class="prerequisite"><i class="fas fa-plus"></i> Điều kiện tiên quyết</a>
+      <div class="buttons">
+        <button class="cancel-btn" onclick="closeModuleModal()">Hủy</button>
+        <button class="add-btn" onclick="addModule()">Thêm Học Phần</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Thêm Mục -->
+  <div class="modal" id="addItemModal">
+    <div class="modal-content">
+      <button class="close-btn" onclick="closeItemModal()">×</button>
+      <label for="itemType">Thêm</label>
+      <select id="itemType" onchange="updateItemForm()">
+        <option value="Bài Tập">Bài Tập</option>
+        <option value="Kiểm Tra">Kiểm Tra</option>
+        <option value="Tập Tin">Tập Tin</option>
+        <option value="Thảo Luận">Thảo Luận</option>
+      </select>
+      <div id="itemForm">
+        <!-- Nội dung động sẽ được cập nhật bởi JavaScript -->
+      </div>
+      <div class="buttons">
+        <button class="cancel-btn" onclick="closeItemModal()">Hủy</button>
+        <button class="add-btn" onclick="addItem()">Thêm Mục</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Chỉnh sửa Bài tập, Bài kiểm tra và Video -->
+  <div class="modal" id="editItemModal">
+    <div class="modal-content">
+      <button class="close-btn" onclick="closeEditModal()">×</button>
+      <h3>Chỉnh sửa Học Phần</h3>
+      <div class="form-group">
+        <label>Video bài giảng</label>
+        <input type="file" id="editLessonVideo" accept="video/*">
+      </div>
+      <div class="form-group">
+        <label>Bài tập (Nội dung hoặc Link)</label>
+        <textarea id="editAssignmentContent" placeholder="Nhập nội dung bài tập hoặc đường link"></textarea>
+      </div>
+      <div class="form-group">
+        <label>Bài tập (Tệp đính kèm - Chọn nhiều file nếu cần)</label>
+        <input type="file" id="editAssignmentFile" multiple>
+      </div>
+      <div class="form-group">
+        <label>Bài kiểm tra (Link)</label>
+        <input type="text" id="editQuizLink" placeholder="Nhập link bài kiểm tra">
+      </div>
+      <div class="buttons">
+        <button class="cancel-btn" onclick="closeEditModal()">Hủy</button>
+        <button class="add-btn" onclick="updateSyllabusItem()">Cập nhật</button>
+      </div>
+    </div>
+  </div>
+</body>
+<script src="/Giaodien.js"></script>
+</html>
