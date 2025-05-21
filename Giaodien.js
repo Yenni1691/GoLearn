@@ -167,6 +167,12 @@
         document.getElementById('assignmentContent').value = '';
         document.getElementById('assignmentFile').value = '';
         document.getElementById('quizLink').value = '';
+
+        document.getElementById('mainContent').style.display = 'block';
+        document.getElementById('wellcome-text').style.display = 'none';
+        document.getElementById('courseOverview').style.display = 'none';
+        document.getElementById('courseDetails').style.display = 'none';
+        document.getElementById('courseNameInput').value = '';
       } else {
         alert('Vui lòng nhập tiêu đề bài học!');
       }

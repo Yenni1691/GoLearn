@@ -63,9 +63,11 @@
       <div class="card">
         <p>Thông báo: Hãy cho chúng tôi biết cách thức và thời điểm bạn muốn nhận thông báo về các sự kiện trong Golearn.</p>
       </div>
-      <div class="card highlight">
+      <div id="wellcome-text" class="card highlight">
         <p>Chào mừng bạn đến với Golearn! Bạn không có bất kỳ khóa học nào, vì vậy trang này sẽ không thể hiển thị thêm thông tin vào lúc này. Khi bạn đăng ký học, bạn sẽ biết được các thông tin cụ thể, truy cập trực tiếp các thông tin cần.</p>
       </div>
+      <div class="syllabus-list" id="syllabusList">
+        </div>
     </div>
 
     <!-- Giao diện Chi tiết khóa học (ẩn ban đầu) -->
@@ -79,22 +81,6 @@
         <div class="form-group">
           <label>Mã khóa học</label>
           <input type="text" value="DKA-6">
-        </div>
-        <div class="form-group">
-          <label>Miền khóa học</label>
-          <input type="text" placeholder="Ví dụ: giaovien.toanlop6.edu.vn">
-        </div>
-        <div class="form-group">
-          <label>Mẫu giao diện</label>
-          <select>
-            <option>Gói mẫu mặc định</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Tham gia</label>
-          <select>
-            <option>Giáo viên, học sinh</option>
-          </select>
         </div>
         <div class="form-group">
           <label>Bắt đầu</label>
@@ -144,9 +130,9 @@
           </div>
           <button class="update-btn" onclick="addSyllabusItem()">Thêm vào đề cương</button>
         </div>
-        <div class="syllabus-list" id="syllabusList">
-          <!-- Các mục đề cương sẽ được thêm động -->
-        </div>
+        <!-- <div class="syllabus-list" id="syllabusList">
+          
+        </div> -->
       </div>
     </div>
   </div>
@@ -268,4 +254,4 @@
   </div>
 </body>
 <script src="/Giaodien.js"></script>
-</html>
+</html

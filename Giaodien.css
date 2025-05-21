@@ -802,20 +802,20 @@ h2 {
   border-radius: 4px;
 }
 
-.course-overview .syllabus-form textarea {
+.main-content .syllabus-form textarea {
   min-height: 100px;
   resize: vertical;
 }
 
-.course-overview .syllabus-form input[type="file"] {
+.main-content .syllabus-form input[type="file"] {
   padding: 5px 0;
 }
 
-.course-overview .syllabus-list {
+.main-content .syllabus-list {
   margin-top: 20px;
 }
 
-.course-overview .syllabus-item {
+.main-content .syllabus-item {
   background-color: #f9f9f9;
   padding: 15px;
   border-radius: 5px;
@@ -823,37 +823,37 @@ h2 {
   border: 1px solid #ddd;
 }
 
-.course-overview .syllabus-item .header {
+.main-content .syllabus-item .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.course-overview .syllabus-item h3 {
+.main-content .syllabus-item h3 {
   font-size: 18px;
   color: #333;
   margin-bottom: 10px;
 }
 
-.course-overview .syllabus-item .toggle-btn {
+.main-content .syllabus-item .toggle-btn {
   cursor: pointer;
   color: #0d6efd;
   font-size: 14px;
 }
 
-.course-overview .syllabus-item .toggle-btn:hover {
+.main-content .syllabus-item .toggle-btn:hover {
   color: #0056b3;
 }
 
-.course-overview .syllabus-item .materials {
+.main-content .syllabus-item .materials {
   margin-top: 10px;
 }
 
-.course-overview .syllabus-item .materials .subtopic {
+.main-content .syllabus-item .materials .subtopic {
   margin-bottom: 10px;
 }
 
-.course-overview .syllabus-item .materials .subtopic-header {
+.main-content .syllabus-item .materials .subtopic-header {
   cursor: pointer;
   font-weight: bold;
   color: #0d6efd;
@@ -863,41 +863,41 @@ h2 {
   padding: 5px 0;
 }
 
-.course-overview .syllabus-item .materials .subtopic-header:hover {
+.main-content .syllabus-item .materials .subtopic-header:hover {
   color: #0056b3;
 }
 
-.course-overview .syllabus-item .materials .subtopic-content {
+.main-content .syllabus-item .materials .subtopic-content {
   display: none;
   padding-left: 20px;
   padding-top: 5px;
 }
 
-.course-overview .syllabus-item .materials .subtopic-content p {
+.main-content .syllabus-item .materials .subtopic-content p {
   font-size: 14px;
   color: #555;
   margin-bottom: 5px;
 }
 
-.course-overview .syllabus-item .materials .subtopic-content a {
+.main-content .syllabus-item .materials .subtopic-content a {
   color: #0d6efd;
   text-decoration: none;
 }
 
-.course-overview .syllabus-item .materials .subtopic-content a:hover {
+.main-content .syllabus-item .materials .subtopic-content a:hover {
   text-decoration: underline;
 }
 
-.course-overview .syllabus-item .materials .subtopic-content ul {
+.main-content .syllabus-item .materials .subtopic-content ul {
   list-style: none;
   padding: 0;
 }
 
-.course-overview .syllabus-item .materials .subtopic-content ul li {
+.main-content .syllabus-item .materials .subtopic-content ul li {
   margin-bottom: 5px;
 }
 
-.course-overview .syllabus-item .materials video {
+.main-content .syllabus-item .materials video {
   width: 100%;
   max-width: 400px;
   height: auto;
@@ -905,13 +905,13 @@ h2 {
   border-radius: 5px;
 }
 
-.course-overview .syllabus-item .materials .actions {
+.main-content .syllabus-item .materials .actions {
   display: flex;
   gap: 5px;
 }
 
-.course-overview .syllabus-item .materials .edit-btn,
-.course-overview .syllabus-item .materials .delete-btn {
+.main-content .syllabus-item .materials .edit-btn,
+.main-content .syllabus-item .materials .delete-btn {
   width: 24px;
   height: 24px;
   display: flex;
@@ -921,31 +921,31 @@ h2 {
   cursor: pointer;
 }
 
-.course-overview .syllabus-item .materials .edit-btn {
+.main-content .syllabus-item .materials .edit-btn {
   background-color: #0d6efd;
   color: white;
 }
 
-.course-overview .syllabus-item .materials .edit-btn:hover {
+.main-content .syllabus-item .materials .edit-btn:hover {
   background-color: #0056b3;
 }
 
-.course-overview .syllabus-item .materials .delete-btn {
+.main-content .syllabus-item .materials .delete-btn {
   background-color: #dc3545;
   color: white;
 }
 
-.course-overview .syllabus-item .materials .delete-btn:hover {
+.main-content .syllabus-item .materials .delete-btn:hover {
   background-color: #c82333;
 }
 
-.course-overview .syllabus-item .materials .subtopic-links {
+.main-content .syllabus-item .materials .subtopic-links {
   display: flex;
   gap: 10px;
   margin-top: 5px;
 }
 
-.course-overview .syllabus-item .materials .subtopic-links a {
+.main-content .syllabus-item .materials .subtopic-links a {
   font-size: 12px;
   color: #666;
   text-decoration: none;
