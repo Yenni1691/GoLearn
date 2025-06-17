@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi tiết khóa học - GoLearn</title>
+    <link rel="stylesheet" href="course-details.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+</head>
+<body>
+    <div class="wrapper">
+        <!-- MENU -->
+    <nav class="menu">
+      <div class="logo">
+        <img src="../Anh/Logo.png" alt="Logo" style="height: 60px;"/>
+        <span></span>
+      </div>
+      <ul class="main-menu">
+        <li><a href="home_teacher.html">HOME</a></li>
+        <li><a href="blog.html">BLOG</a></li>
+        <li><a href="#">COURSE</a>
+          <ul class="sub-menu">
+            <li><a href="#">CREATE COURSE</a></li>
+            <li><a href="#">CREATE TEST</a></li>
+          </ul>
+        </li>
+        <li class="notification">
+          <a href="#">
+            <div class="icon-wrapper">
+              <i class="fas fa-bell"></i>
+              <span class="badge" id="notification-count">3</span>
+            </div>
+          </a>
+        </li>    
+        <li><a href="#"><i class="fas fa-user"></i></a>
+            <ul class="sub-menu">
+                <li><div class="teacher-name" id="teacher-name">TÊN HỌC SINH</div></li>
+                <li><a href="profile.html">PROFILE</a></li>
+                <li><a href="#">SETTING</a></li>
+                <li><a href="#">STATISTICAL</a></li>
+                <li><a href="#">SUPPORT</a></li>
+                <li><a href="../home/home.html">LOG OUT</a></li>
+            </ul>
+        </li>
+      </ul>
+    </nav>
+        <!-- Main Content -->
+        <main class="course-main">
+            <!-- Sidebar (Nội dung khóa học) -->
+            <aside class="sidebar">
+                <div class="modules-section">
+                    <h2>Nội dung khóa học</h2>
+                    <div class="modules-list" id="modulesList"></div>
+                </div>
+            </aside>
+
+            <!-- Main Content (Chi tiết khóa học) -->
+            <section class="main-content">
+                <div class="course-header">
+                    <h1 id="courseTitle">Tên khóa học</h1>
+                    <p id="courseClass">Lớp: Chưa chọn</p>
+                    <div class="course-description" id="courseDescription">
+                        Mô tả khóa học sẽ hiển thị ở đây.
+                    </div>
+                    <div class="course-actions">
+                        <button class="btn btn-primary" id="editButton">Sửa khóa học</button>
+                        <button class="btn btn-secondary" onclick="window.history.back()">Quay lại</button>
+                    </div>
+                </div>
+
+                <div class="video-section">
+                    <h2 id="videoTitle">Chưa chọn bài học</h2>
+                    <video id="videoPlayer" controls>
+                        <source src="" type="video/mp4">
+                        Trình duyệt của bạn không hỗ trợ video.
+                    </video>
+                </div>
+
+                <div class="module-detail" id="moduleDetail">
+                    Chọn một module để xem chi tiết.
+                </div>
+            </section>
+        </main>
+
+         <!-- ===== FOOTER ===== -->
+<!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-container">
+ 
+      <!-- CỘT 1 -->
+      <div class="footer-col">
+        <h2><span class="highlight">GoLearn.com</span></h2>
+        <p class="slogan">Trang web chia sẻ nội dung kiến thức miễn phí dành cho học sinh THCS.</p>
+      </div>
+
+      <!-- CỘT 2 -->
+      <div class="footer-col">
+        <h3>CHÍNH SÁCH</h3>
+        <ul>
+          <li><a href="#">Chính sách bảo mật</a></li>
+          <li><a href="#">Thanh toán</a></li>
+          <li><a href="#">Đổi trả khóa học</a></li>
+          <li><a href="#">Tuyển dụng</a></li>
+        </ul>
+      </div>
+
+      <!-- CỘT 3 -->
+      <div class="footer-col">
+        <h3>LIÊN HỆ</h3>
+        <p><i class="fas fa-map-marker-alt contact-icon"></i> Tòa C0, số 182 Lương Thế Vinh, Thanh Xuân, Hà Nội</p>
+        <p><i class="fas fa-phone contact-icon"></i> 084 283 45 85</p>
+        <p><i class="fas fa-envelope contact-icon"></i> <a href="mailto:golearnteam@gmail.com">golearnteam@gmail.com</a></p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2025 Copyright belongs to GoLearn website. Copying in any form is prohibited without written consent.</p>
+    </div>
+  </footer>
+
+    <script src="course-details.js"></script>
+</body>
+</html>
