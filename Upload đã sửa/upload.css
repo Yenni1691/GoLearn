@@ -1,0 +1,506 @@
+/* RESET */
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    max-width: 100%;
+    height: 100%;
+    font-family: Arial, sans-serif;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;  
+}
+
+.logo {
+    width: 30%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.logo img {
+    height: 40px;
+}
+
+.menu {
+    background-color: #004466;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 30px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+}
+
+.main-menu {
+    list-style: none;
+    display: flex;
+    margin-left: auto;    
+    align-items: center;
+    gap: 30px;
+}
+
+.main-menu > li {
+    position: relative;
+    width: auto; 
+}
+
+.main-menu > li > a {
+    display: inline-block;
+    padding: 20px 15px;
+    color: white;
+    text-decoration: none;
+    position: relative;
+}
+
+.main-menu > li > a:hover {
+    color: #ffcc00;      
+    text-decoration: none; 
+}
+
+.main-menu > li > a:hover .fa-user {
+    color: white !important;
+}
+
+.sub-menu {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    min-width: 180px;
+    transform: translateX(-50%);
+    background: #004466;
+    display: none;
+    border-radius: 8px;
+    z-index: 100;
+    padding: 10px 0;
+}
+
+#teacher-name {
+    position: static;
+    top: 100%;
+    left: auto;
+    min-width: 140px;
+    background: #004466;
+    border-radius: 8px 8px 0 0;
+    z-index: 100;
+    color: yellow;
+    padding: 10px 20px;
+    font-weight: bold;
+}
+
+.sub-menu li a {
+    position: relative;
+}
+
+.sub-menu li a:hover {
+    color: #ffcc00;
+    text-decoration: none;
+    background-color: #004466;
+}  
+
+.main-menu li:hover > .sub-menu {
+    display: block;
+}
+
+.sub-menu li {
+    list-style: none;
+    position: relative;
+    border-bottom: 1px solid #ffffff40;
+}
+
+.sub-menu li:last-child {
+    border-bottom: none;
+}
+
+.sub-menu li a {
+    display: block;
+    padding: 10px 20px;
+    color: white;
+    text-decoration: none;
+    transition: background 0.3s;
+    white-space: nowrap;
+}
+
+.sub-menu li a:hover {
+    background: #004466;
+    background-color: #FFFFFF;
+    border-radius: 5px;
+}
+
+.sub-menu .sub-menu {
+    position: absolute;
+    top: 0;
+    left: 100%;
+    margin-left: 0;
+    background-color: #004466;
+    display: none;
+    border-radius: 8px;
+    padding: 10px 0;
+    min-width: 140px;
+}
+
+.sub-menu li:hover > .sub-menu {
+    display: block;
+} 
+
+.main-menu > li > a .fa-user ~ .sub-menu,
+.main-menu > li:hover > .sub-menu.user-sub-menu {
+    left: 0;
+    right: auto;
+}
+
+.icon-right {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 12px;
+    color: white;
+    pointer-events: none;
+}
+
+.notification {
+    position: relative;
+}
+
+.notification a {
+    display: inline-block;
+    position: relative;
+    color: white;
+}
+
+.notification .fa-bell {
+    font-size: 22px;
+    color: white;
+}
+
+.notification .badge {
+    position: absolute;
+    top: 12px;    
+    right: 10px;   
+    background-color: red;
+    color: white;
+    font-size: 11px;
+    padding: 1px 5px;
+    border-radius: 50%;
+    font-weight: bold;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 16px;
+    height: 16px;
+    z-index: 10;
+}
+
+/* Upload Form Styles */
+.upload {
+    padding: 30px 40px;
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.upload h2 {
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.section-container {
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.section-container h3 {
+    font-size: 22px;
+    color: #1a3c5e;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #1a3c5e;
+    padding-bottom: 5px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #333;
+    font-size: 16px;
+}
+
+.form-group label span {
+    color: red;
+}
+
+.form-group input[type="text"],
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.form-group textarea {
+    height: 100px;
+    resize: vertical;
+}
+
+.form-group input[type="file"] {
+    padding: 8px 0;
+}
+
+.image-preview img {
+    max-width: 100%;
+    max-height: 250px;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.lesson-preview,
+.file-list {
+    margin-top: 15px;
+}
+
+.lesson-preview p,
+.file-list p {
+    margin: 8px 0;
+    color: #333;
+    font-size: 16px;
+}
+
+.lesson-preview video {
+    max-width: 100%;
+    max-height: 250px;
+    border-radius: 5px;
+    margin-bottom: 8px;
+}
+
+.module {
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    background: #fff;
+}
+
+.module h3 {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.deleteModuleButton,
+.addModuleAssignmentQuestionButton,
+.deleteQuestionButton,
+#addModuleButton,
+#addAssignmentQuestionButton {
+    display: block;
+    width: 100%;
+    max-width: 200px;
+    padding: 10px;
+    background-color: #ff3333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin: 10px 0;
+}
+
+#addModuleButton,
+#addAssignmentQuestionButton,
+.addModuleAssignmentQuestionButton {
+    background-color: #1a3c5e;
+}
+
+.deleteModuleButton:hover,
+.deleteQuestionButton:hover {
+    background-color: #cc0000;
+}
+
+#addModuleButton:hover,
+#addAssignmentQuestionButton:hover,
+.addModuleAssignmentQuestionButton:hover {
+    background-color: #143047;
+}
+
+button[type="submit"] {
+    display: block;
+    width: 100%;
+    max-width: 400px;
+    padding: 15px;
+    background-color: #1a3c5e;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin: 20px auto;
+}
+
+button[type="submit"]:hover {
+    background-color: #143047;
+}
+
+/* Question Styles */
+.question {
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    background: #fff;
+}
+
+.question h4 {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.option input[type="text"] {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Footer Styles */
+.footer {
+    background-color: #004466;
+    color: white;
+    padding: 5px 20px 20px 20px;
+    margin-top: auto;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    gap: 50px;
+    padding: 20px 20px 0 20px; 
+    margin-bottom: 0;
+}
+
+.footer-col {
+    flex: 1;
+    min-width: 200px;
+    max-width: 33.33%;
+    word-wrap: break-word;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.footer-col h2,
+.footer-col h3 {
+    color: #ffcc00;
+    margin-bottom: 15px;
+}
+
+.footer-col .slogan,
+.footer-col p,
+.footer-col a,
+.footer-col ul {
+    font-size: 14px;
+    color: #eee;
+    text-decoration: none;
+    line-height: 1.8;
+}
+
+.footer-col ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-col ul li {
+    margin-bottom: 8px;
+}
+
+.footer-col a:hover {
+    text-decoration: underline;
+    color: #ffcc00;
+}
+
+.footer-bottom {
+    text-align: center;
+    border-top: 1px solid #555;
+    font-size: 13px;
+    margin-top: 5px; 
+    padding-top: 20px;
+}
+
+@media (max-width: 768px) {
+    .upload {
+        padding: 20px;
+        max-width: 100%;
+    }
+
+    .upload h2 {
+        font-size: 24px;
+    }
+
+    .section-container h3 {
+        font-size: 20px;
+    }
+
+    .form-group label {
+        font-size: 14px;
+    }
+
+    .form-group input[type="text"],
+    .form-group textarea,
+    .form-group select {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    .module h3 {
+        font-size: 18px;
+    }
+
+    .deleteModuleButton,
+    .addModuleAssignmentQuestionButton,
+    .deleteQuestionButton,
+    #addModuleButton,
+    #addAssignmentQuestionButton {
+        font-size: 14px;
+        padding: 8px;
+        max-width: 150px;
+    }
+
+    button[type="submit"] {
+        font-size: 16px;
+        padding: 12px;
+        max-width: 100%;
+    }
+}

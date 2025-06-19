@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tạo khóa học</title>
+    <link rel="stylesheet" href="upload.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="wrapper">
+     <!-- MENU -->
+    <nav class="menu">
+      <div class="logo">
+        <img src="../Anh/Logo.png" alt="Logo" style="height: 60px;"/>
+        <span></span>
+      </div>
+      <ul class="main-menu">
+        <li><a href="home_teacher.html">HOME</a></li>
+        <li><a href="blog.html">BLOG</a></li>
+        <li><a href="#">COURSE</a>
+          <ul class="sub-menu">
+            <li><a href="#">CREATE COURSE</a></li>
+            <li><a href="#">CREATE TEST</a></li>
+          </ul>
+        </li>
+        <li class="notification">
+          <a href="#">
+            <div class="icon-wrapper">
+              <i class="fas fa-bell"></i>
+              <span class="badge" id="notification-count">3</span>
+            </div>
+          </a>
+        </li>    
+        <li><a href="#"><i class="fas fa-user"></i></a>
+            <ul class="sub-menu">
+                <li><div class="teacher-name" id="teacher-name">TÊN HỌC SINH</div></li>
+                <li><a href="profile.html">PROFILE</a></li>
+                <li><a href="#">SETTING</a></li>
+                <li><a href="#">STATISTICAL</a></li>
+                <li><a href="#">SUPPORT</a></li>
+                <li><a href="../home/home.html">LOG OUT</a></li>
+            </ul>
+        </li>
+      </ul>
+    </nav>
+ <section class="upload">
+            <h2>Tạo khóa học mới</h2>
+            <form id="courseForm">
+                <input type="hidden" id="courseId" name="courseId">
+                <div class="section-container">
+                    <h3>Thông tin khóa học</h3>
+                    <div class="form-group">
+                        <label for="courseTitle">Tiêu đề khóa học <span>*</span></label>
+                        <input type="text" id="courseTitle" name="courseTitle" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="courseDescription">Mô tả khóa học <span>*</span></label>
+                        <textarea id="courseDescription" name="courseDescription" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="courseCategory">Môn học <span>*</span></label>
+                        <select id="courseCategory" name="courseCategory" required>
+                            <option value="">Chọn môn học</option>
+                            <option value="Toán">Toán</option>
+                            <option value="Văn">Văn</option>
+                            <option value="Anh">Anh</option>
+                            <option value="Lý">Lý</option>
+                            <option value="Hóa">Hóa</option>
+                            <option value="Sinh">Sinh</option>
+                            <option value="Sử">Sử</option>
+                            <option value="Địa">Địa</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="courseClass">Lớp học <span>*</span></label>
+                        <select id="courseClass" name="courseClass" required>
+                            <option value="">Chọn lớp học</option>
+                            <option value="Lớp 6">Lớp 6</option>
+                            <option value="Lớp 7">Lớp 7</option>
+                            <option value="Lớp 8">Lớp 8</option>
+                            <option value="Lớp 9">Lớp 9</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="courseImage">Hình ảnh đại diện <span>*</span></label>
+                        <input type="file" id="courseImage" name="courseImage" accept="image/*" required>
+                        <div id="imagePreview" class="image-preview"></div>
+                    </div>
+                </div>
+
+                <div class="section-container">
+                    <h3>Modules</h3>
+                    <div id="modulesContainer"></div>
+                    <button type="button" id="addModuleButton">Thêm Module</button>
+                </div>
+
+                <div class="section-container">
+                    <h3>Bài tập toàn khóa</h3>
+                    <div id="courseAssignmentContainer">
+                        <div class="form-group">
+                            <label for="assignmentTitle">Tiêu đề bài tập</label>
+                            <input type="text" id="assignmentTitle" name="assignmentTitle">
+                        </div>
+                        <div class="form-group">
+                            <label for="assignmentDescription">Mô tả bài tập</label>
+                            <textarea id="assignmentDescription" name="assignmentDescription"></textarea>
+                        </div>
+                        <div id="assignmentQuestionsContainer">
+                            <h4>Câu hỏi</h4>
+                        </div>
+                        <button type="button" id="addAssignmentQuestionButton">Thêm câu hỏi bài tập</button>
+                    </div>
+                </div>
+
+                <button type="submit">Đăng tải khóa học</button>
+            </form>
+        </section>
+    </div>
+        <!-- ===== FOOTER ===== -->
+<!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-container">
+ 
+      <!-- CỘT 1 -->
+      <div class="footer-col">
+        <h2><span class="highlight">GoLearn.com</span></h2>
+        <p class="slogan">Trang web chia sẻ nội dung kiến thức miễn phí dành cho học sinh THCS.</p>
+      </div>
+
+      <!-- CỘT 2 -->
+      <div class="footer-col">
+        <h3>CHÍNH SÁCH</h3>
+        <ul>
+          <li><a href="#">Chính sách bảo mật</a></li>
+          <li><a href="#">Thanh toán</a></li>
+          <li><a href="#">Đổi trả khóa học</a></li>
+          <li><a href="#">Tuyển dụng</a></li>
+        </ul>
+      </div>
+
+      <!-- CỘT 3 -->
+      <div class="footer-col">
+        <h3>LIÊN HỆ</h3>
+        <p><i class="fas fa-map-marker-alt contact-icon"></i> Tòa C0, số 182 Lương Thế Vinh, Thanh Xuân, Hà Nội</p>
+        <p><i class="fas fa-phone contact-icon"></i> 084 283 45 85</p>
+        <p><i class="fas fa-envelope contact-icon"></i> <a href="mailto:golearnteam@gmail.com">golearnteam@gmail.com</a></p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2025 Copyright belongs to GoLearn website. Copying in any form is prohibited without written consent.</p>
+    </div>
+  </footer>
+    <script src="upload.js"></script>
+</body>
+</html>
