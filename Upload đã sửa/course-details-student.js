@@ -9,6 +9,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const moduleAssignmentContent = document.getElementById('moduleAssignmentContent');
     const courseAssignmentContent = document.getElementById('courseAssignmentContent');
 
+    // Mock student ID
+    const studentId = 1;
+
     // Load courses from localStorage
     const courses = JSON.parse(localStorage.getItem('courses')) || [];
 
@@ -24,9 +27,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const course = courses[viewIndex];
 
-    // Load progress from localStorage
-    let progress = JSON.parse(localStorage.getItem(`courseProgress_${course.id}`)) || {};
-    let assignmentResults = JSON.parse(localStorage.getItem(`assignmentResults_${course.id}`)) || {};
+    // Load progress, view counts, download counts, and completion times
+    let progress = JSON.parse(localStorage.getItem(`courseProgress_${course.id}_${studentId}`)) || {};
+    let viewCounts = JSON.parse(localStorage.getItem(`viewCounts_${course.id}_${studentId}`)) || {};
+    let downloadCounts = JSON.parse(localStorage.getItem(`downloadCounts_${course.id}_${studentId}`)) || {};
+    let completionTimes = JSON.parse(localStorage.getItem(`completionTimes_${course.id}_${studentId}`)) || {};
+    let assignmentResults = JSON.parse(localStorage.getItem(`assignmentResults_${course.id}_${studentId}`)) || {};
 
     // Populate course details
     courseTitle.textContent = course.title || 'Chưa có tiêu đề';
@@ -42,11 +48,24 @@ document.addEventListener('DOMContentLoaded', () => {
         lessonVideo.play();
         lessonVideo.scrollIntoView({ behavior: 'smooth' });
 
-        if (!progress[moduleIndex]) {
-            progress[moduleIndex] = {};
-        }
+        // Increment view count
+        if (!viewCounts[moduleIndex]) viewCounts[moduleIndex] = {};
+        viewCounts[moduleIndex][lessonIndex] = (viewCounts[moduleIndex][lessonIndex] || 0) + 1;
+        localStorage.setItem(`viewCounts_${course.id}_${studentId}`, JSON.stringify(viewCounts));
+
+        // Mark lesson as completed
+        if (!progress[moduleIndex]) progress[moduleIndex] = {};
         progress[moduleIndex][lessonIndex] = true;
-        localStorage.setItem(`courseProgress_${course.id}`, JSON.stringify(progress));
+        localStorage.setItem(`courseProgress_${course.id}_${studentId}`, JSON.stringify(progress));
+
+        // Check if module is completed
+        const module = course.modules[moduleIndex];
+        const allLessonsCompleted = module.lessonFiles?.every((_, idx) => progress[moduleIndex][idx]);
+        if (allLessonsCompleted && !completionTimes[moduleIndex]) {
+            const completionTime = (Math.random() * 10 + 1).toFixed(2); // Mock completion time in hours
+            completionTimes[moduleIndex] = completionTime;
+            localStorage.setItem(`completionTimes_${course.id}_${studentId}`, JSON.stringify(completionTimes));
+        }
 
         const progressIcon = document.querySelector(`.lesson-item[data-module="${moduleIndex}"][data-lesson="${lessonIndex}"] .progress-icon`);
         if (progressIcon) {
@@ -55,7 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Function to display assignment with interactive elements
+    // Function to display assignment
     function displayAssignment(data, container, titlePrefix = '', type, id) {
         if (!data || !data.title) {
             container.innerHTML = '<p>Chưa có bài tập.</p>';
@@ -107,10 +126,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 resultElement.className = `question-result ${isCorrect ? 'correct' : 'incorrect'}`;
             });
 
-            // Save results to localStorage
+            // Save results
             if (!assignmentResults[type]) assignmentResults[type] = {};
             assignmentResults[type][id] = answers;
-            localStorage.setItem(`assignmentResults_${course.id}`, JSON.stringify(assignmentResults));
+            localStorage.setItem(`assignmentResults_${course.id}_${studentId}`, JSON.stringify(assignmentResults));
 
             // Display score
             const scoreDisplay = document.createElement('p');
@@ -118,12 +137,12 @@ document.addEventListener('DOMContentLoaded', () => {
             scoreDisplay.textContent = `Điểm: ${score}/${data.questions.length} (${(score / data.questions.length * 100).toFixed(2)}%)`;
             container.querySelector('.assignment-content').appendChild(scoreDisplay);
 
-            // Disable form after submission
+            // Disable form
             form.querySelectorAll('input').forEach(input => input.disabled = true);
             submitButton.disabled = true;
         });
 
-        // Load previous results if available
+        // Load previous results
         if (assignmentResults[type]?.[id]) {
             data.questions.forEach((q, i) => {
                 const resultElement = container.querySelector(`#result_${type}_${id}_${i}`);
@@ -195,7 +214,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const materialsContainer = moduleItem.querySelector('.materials');
             if (module.files && module.files.length > 0) {
-                module.files.forEach(file => {
+                module.files.forEach((file, fileIndex) => {
                     const materialItem = document.createElement('div');
                     materialItem.className = 'material-item';
                     if (file.dataUrl) {
@@ -204,6 +223,11 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <i class="fas fa-download"></i> ${file.name}
                             </a>
                         `;
+                        materialItem.querySelector('a').addEventListener('click', () => {
+                            if (!downloadCounts[moduleIndex]) downloadCounts[moduleIndex] = {};
+                            downloadCounts[moduleIndex][fileIndex] = (downloadCounts[moduleIndex][fileIndex] || 0) + 1;
+                            localStorage.setItem(`downloadCounts_${course.id}_${studentId}`, JSON.stringify(downloadCounts));
+                        });
                     } else {
                         materialItem.innerHTML = `<p>${file.name} (Không thể tải do thiếu dữ liệu)</p>`;
                     }
@@ -226,9 +250,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         `).join('')}
                     </ul>
                 `;
-                // Display module assignment
                 displayAssignment(module.assignment, moduleAssignmentContent, `Bài tập module ${moduleIndex + 1}: `, 'module', moduleIndex);
-                // Display course assignment
                 displayAssignment(course.courseAssignment, courseAssignmentContent, 'Bài tập toàn khóa: ', 'course', 0);
             });
         });

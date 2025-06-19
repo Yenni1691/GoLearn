@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thống Kê Học Sinh - GoLearn</title>
+    <link rel="stylesheet" href="student-statistics.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+</head>
+<body>
+    <div class="wrapper">
+        <!-- MENU -->
+   <nav class="menu">
+ <div class="logo">
+        <img src="../Anh/logo.png" alt="Logo" style="height: 60px;"/>
+        <span></span>
+      </div>
+      <ul class="main-menu">
+        <li><a href="trangchuhsinh.html">HOME</a></li>
+        <li><a href="blogStudent.html">BLOG</a></li>
+        <li><a href="#">COURSE</a>
+          <ul class="sub-menu">
+            <li><a href="#">TOÁN</a></li>
+            <li><a href="#">NGỮ VĂN</a></li>
+            <li><a href="#">TIẾNG ANH</a>
+              <ul class="sub-menu">
+                <li><a href="#">LỚP 6</a></li>
+                <li><a href="#">LỚP 7</a></li>
+                <li><a href="#">LỚP 8</a></li>
+                <li><a href="#">LỚP 9</a></li>
+              </ul>
+            </li>
+            <li><a href="#">VẬT LÝ</a></li>
+            <li><a href="#">HÓA HỌC</a></li>
+            <li><a href="#">SINH HỌC</a></li>
+            <li><a href="#">LỊCH SỬ</a></li>
+            <li><a href="#">ĐỊA LÝ</a></li>
+          </ul>
+        </li>
+        <li class="notification">
+          <a href="#">
+            <div class="icon-wrapper">
+              <i class="fas fa-bell"></i>
+              <span class="badge" id="notification-count">3</span>
+            </div>
+          </a>
+        </li>    
+        <li><a href="#"><i class="fas fa-user"></i></a>
+            <ul class="sub-menu">
+                <li><div class="teacher-name" id="teacher-name">TÊN HỌC SINH</div></li>
+                <li><a href="profileStudent.html">PROFILE</a></li>
+                <li><a href="#">SETTING</a></li>
+                <li><a href="#">STATISTICAL</a></li>
+                <li><a href="#">SUPPORT</a></li>
+                <li><a href="../home/home.html">LOG OUT</a></li>
+            </ul>
+        </li>
+      </ul>
+   </nav>
+
+       <section class="statistics-section">
+            <div class="statistics-header">
+                <h2>Thống kê tiến độ học tập</h2>
+                <p>Chọn khóa học để xem thống kê chi tiết.</p>
+                <select id="courseSelect">
+                    <option value="">Chọn khóa học</option>
+                </select>
+            </div>
+            <div class="statistics-content">
+                <div class="stat-card">
+                    <h3>Tỷ lệ hoàn thành khóa học</h3>
+                    <p id="completionRate">0%</p>
+                    <div class="chart-container">
+                        <canvas id="completionChart"></canvas>
+                    </div>
+                </div>
+                 <div class="stat-card">
+                    <h3>Điểm số bài tập</h3>
+                    <ul id="assignmentScores">
+                        <li>Vui lòng chọn khóa học.</li>
+                    </ul>
+                </div>
+                </div>
+                <div class="stat-card">
+                    <h3>Module chưa hoàn thành</h3>
+                    <ul id="incompleteModules">
+                        <li>Vui lòng chọn khóa học.</li>
+                    </ul>
+                </div>
+                <div class="stat-card">
+                    <h3>Thời gian hoàn thành module</h3>
+                    <ul id="completionTimes">
+                        <li>Vui lòng chọn khóa học.</li>
+                    </ul>
+                </div>
+                <div class="stat-card">
+                    <h3>Số lần xem bài học</h3>
+                    <ul id="viewCounts">
+                        <li>Vui lòng chọn khóa học.</li>
+                    </ul>
+            </div>
+        </section>
+          <!-- ===== FOOTER ===== -->
+<!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-container">
+ 
+      <!-- CỘT 1 -->
+      <div class="footer-col">
+        <h2><span class="highlight">GoLearn.com</span></h2>
+        <p class="slogan">Trang web chia sẻ nội dung kiến thức miễn phí dành cho học sinh THCS.</p>
+      </div>
+
+      <!-- CỘT 2 -->
+      <div class="footer-col">
+        <h3>CHÍNH SÁCH</h3>
+        <ul>
+          <li><a href="#">Chính sách bảo mật</a></li>
+          <li><a href="#">Thanh toán</a></li>
+          <li><a href="#">Đổi trả khóa học</a></li>
+          <li><a href="#">Tuyển dụng</a></li>
+        </ul>
+      </div>
+
+      <!-- CỘT 3 -->
+      <div class="footer-col">
+        <h3>LIÊN HỆ</h3>
+        <p><i class="fas fa-map-marker-alt contact-icon"></i> Tòa C0, số 182 Lương Thế Vinh, Thanh Xuân, Hà Nội</p>
+        <p><i class="fas fa-phone contact-icon"></i> 084 283 45 85</p>
+        <p><i class="fas fa-envelope contact-icon"></i> <a href="mailto:golearnteam@gmail.com">golearnteam@gmail.com</a></p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2025 Copyright belongs to GoLearn website. Copying in any form is prohibited without written consent.</p>
+    </div>
+  </footer>
+    <script src="student-statistics.js"></script>
+</body>
+</html>
